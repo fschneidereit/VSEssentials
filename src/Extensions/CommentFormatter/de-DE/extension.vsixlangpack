@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VsixLanguagePack Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema-lp/2010">
+  <LocalizedName>Comment Formatter</LocalizedName>
+  <LocalizedDescription xml:space="preserve">Bietet zusätzliches Formatierungsverhalten für Quelltext-Kommentare.</LocalizedDescription>
+  <License>License.txt</License>
+</VsixLanguagePack>
