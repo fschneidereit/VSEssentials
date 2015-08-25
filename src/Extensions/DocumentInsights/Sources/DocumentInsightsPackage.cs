@@ -21,29 +21,31 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
+namespace Flatcode.VSEssentials.Extensions.DocumentInsights
 {
-    static class Empty
+    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [InstalledProductRegistration("#110", "#112", ProductID, IconResourceID = 400)]
+    [Guid(DocumentInsightsGuids.Package)]
+    [ProvideOptionPage(typeof(DocumentInsightsOptionPage), "VSEssentials", "Document Insights", 120, 110, false)]
+    sealed class DocumentInsightsPackage : Package
     {
-        #region Singleton Class
+        #region Constants
 
-        static class Instance<T>
-        {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
-        }
+        public const String ProductID = "1.0.0";
 
         #endregion
 
         #region Methods
 
-        public static IList<T> List<T>()
+        protected override void Initialize()
         {
-            return Instance<T>.List;
+            base.Initialize();
         }
 
         #endregion

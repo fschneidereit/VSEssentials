@@ -1,6 +1,6 @@
-﻿/***************************************************************************************************
+/***************************************************************************************************
  *
- *  Copyright © 2015 Flatcode.net
+ *  Copyright � 2015 Flatcode.net
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,31 +21,23 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
-{
-    static class Empty
-    {
-        #region Singleton Class
+#region Attributes
 
-        static class Instance<T>
-        {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
-        }
+[assembly: AssemblyTitle("LocalizationHelper")]
+[assembly: AssemblyDescription("LocalizationHelper-DLL")]
+[assembly: AssemblyCulture("")]
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Attributes: Configuration
 
-        public static IList<T> List<T>()
-        {
-            return Instance<T>.List;
-        }
+[assembly: ComVisible(false)]
+[assembly: Guid("707efba1-90cb-4843-83d9-349a532757a4")]
 
-        #endregion
-    }
-}
+#endregion

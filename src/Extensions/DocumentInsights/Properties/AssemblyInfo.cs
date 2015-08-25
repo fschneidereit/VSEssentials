@@ -21,31 +21,30 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using System;
+using System.Reflection;
+using System.Resources;
+using System.Runtime.InteropServices;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
-{
-    static class Empty
-    {
-        #region Singleton Class
+#region Attributes
 
-        static class Instance<T>
-        {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
-        }
+[assembly: AssemblyTitle("DocumentInsights")]
+[assembly: AssemblyDescription("DocumentInsights-DLL")]
+[assembly: AssemblyCulture("")]
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Attributes: Configuration
 
-        public static IList<T> List<T>()
-        {
-            return Instance<T>.List;
-        }
+[assembly: ComVisible(false)]
+[assembly: Guid("9b35a908-6979-45de-a1a0-dcc1af9dc431")]
 
-        #endregion
-    }
-}
+#endregion
+
+#region Attributes: Localization
+
+[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
+
+#endregion

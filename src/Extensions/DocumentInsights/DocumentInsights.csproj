@@ -13,12 +13,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{D01956E3-ABB5-4F2C-B1C3-679E96650F9D}</ProjectGuid>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{9B35A908-6979-45DE-A1A0-DCC1AF9DC431}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Flatcode.VSEssentials.Extensions.CommentFormatter</RootNamespace>
-    <AssemblyName>CommentFormatter</AssemblyName>
+    <RootNamespace>Flatcode.VSEssentials.Extensions.DocumentInsights</RootNamespace>
+    <AssemblyName>DocumentInsights</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)snk\VSEssentials.snk</AssemblyOriginatorKeyFile>
@@ -48,28 +48,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Sources\DocumentInsightsGuids.cs" />
+    <Compile Include="Sources\LocalLocalizationProvider.cs" />
+    <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
+    <Compile Include="Sources\DocumentInsightsOptionPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Sources\DocumentInsightsPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\Shared\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Sources\CommentBlockClassifier.cs" />
-    <Compile Include="Sources\CommentBlockClassifierProvider.cs" />
-    <Compile Include="Sources\CommentBlockFormatDefinition.cs" />
-    <Compile Include="Sources\CommentFormatter.cs" />
-    <Compile Include="Sources\ClassificationFormatter.cs" />
-    <Compile Include="Sources\ClassificationTypeDefinitions.cs" />
-    <Compile Include="Sources\ClassificationTypeNames.cs" />
-    <Compile Include="Sources\CommentFormatterGuids.cs" />
-    <Compile Include="Sources\CommentFormatterOptionPage.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Sources\DocumentInsightsMargin.cs" />
+    <Compile Include="Sources\DocumentInsightsMarginProvider.cs" />
+    <Compile Include="Sources\DocumentInsightsOptions.cs" />
+    <Compile Include="Sources\DocumentInsightsViewModel.cs" />
+    <Compile Include="Sources\DocumentInsightsView.xaml.cs">
+      <DependentUpon>DocumentInsightsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sources\CommentFormatterPackage.cs" />
-    <Compile Include="Sources\CommentFormatterOptions.cs" />
-    <Compile Include="Sources\Empty.cs" />
-    <Compile Include="Sources\KnownClassificationTypeNames.cs" />
-    <Compile Include="Sources\LocalLocalizationProvider.cs" />
-    <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
-    <Compile Include="Sources\TextViewCreationListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -78,11 +74,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\LocalizationHelper\LocalizationHelper.csproj">
+      <Project>{707efba1-90cb-4843-83d9-349a532757a4}</Project>
+      <Name>LocalizationHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="de-DE\extension.vsixlangpack">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="de-DE\License.txt">
@@ -91,11 +89,13 @@
     <Content Include="en-US\License.txt">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\PreviewImage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Resources\Icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Package.ico" />
+    <Content Include="Resources\PreviewImage.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -123,7 +123,6 @@
       <HintPath>..\..\..\packages\Microsoft.VisualStudio.Imaging.14.0.23107\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Language.StandardClassification, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\..\..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
       <Private>True</Private>
@@ -228,11 +227,19 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Sources\DocumentInsightsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\ExtensionResources.de-DE.resx">
       <LogicalName>ExtensionResources.de-DE.Resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ExtensionResources.resx">
       <LogicalName>ExtensionResources.Resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\VSPackage.de-DE.resx">
       <MergeWithCTO>true</MergeWithCTO>
@@ -241,14 +248,7 @@
     <EmbeddedResource Include="Resources\VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.Resources</LogicalName>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\LocalizationHelper\LocalizationHelper.csproj">
-      <Project>{707efba1-90cb-4843-83d9-349a532757a4}</Project>
-      <Name>LocalizationHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

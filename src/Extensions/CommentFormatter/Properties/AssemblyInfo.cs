@@ -38,7 +38,6 @@ using System.Runtime.InteropServices;
 
 #region Attributes: Configuration
 
-[assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]
 [assembly: Guid("d01956e3-abb5-4f2c-b1c3-679e96650f9d")]
 
@@ -46,6 +45,6 @@ using System.Runtime.InteropServices;
 
 #region Attributes: Localization
 
-[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
+[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
 
 #endregion

@@ -22,36 +22,16 @@
 #region Using Directives
 
 using System;
-using System.ComponentModel;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
+namespace Flatcode.VSEssentials.Extensions.DocumentInsights
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public sealed class LocalizedDescriptionAttribute : DescriptionAttribute
+    static class DocumentInsightsGuids
     {
-        #region Fields
+        #region Constants
 
-        readonly String resourceName;
-
-        #endregion
-
-        #region Constructors
-
-        public LocalizedDescriptionAttribute(String resourceName) :
-            base(LocalizationProvider.Current.ResourceManager.GetString(resourceName))
-        {
-            this.resourceName = resourceName;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public String ResourceName {
-            get { return resourceName; }
-        }
+        public const String Package = "102e75ee-1b0f-4e56-8956-9f41efcf6701";
 
         #endregion
     }

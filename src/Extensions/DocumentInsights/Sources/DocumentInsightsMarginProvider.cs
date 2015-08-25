@@ -21,37 +21,36 @@
 
 #region Using Directives
 
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.Utilities;
 using System;
-using System.ComponentModel;
+using System.ComponentModel.Composition;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
+namespace Flatcode.VSEssentials.Extensions.DocumentInsights
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event)]
-    public sealed class LocalizedDisplayNameAttribute : DisplayNameAttribute
+    [Export(typeof(IWpfTextViewMarginProvider))]
+    [Name(DocumentInsightsMargin.MarginName)]
+    [ContentType("text")]
+    [MarginContainer(PredefinedMarginNames.Bottom)]
+    [Order(After = PredefinedMarginNames.Bottom)]
+    [TextViewRole(PredefinedTextViewRoles.Document)]
+    sealed class DocumentInsightsMarginProvider : IWpfTextViewMarginProvider
     {
-        #region Fields
-
-        readonly String resourceName;
-
-        #endregion
-
-        #region Constructors
-
-        public LocalizedDisplayNameAttribute(String resourceName) :
-            base(LocalizationProvider.Current.ResourceManager.GetString(resourceName))
-        {
-            // Instance initialization
-            this.resourceName = resourceName;
-        }
-
-        #endregion
-
         #region Properties
 
-        public String ResourceName {
-            get { return resourceName; }
+        [Import]
+        ITextDocumentFactoryService DocumentService { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public IWpfTextViewMargin CreateMargin(IWpfTextViewHost wpfTextViewHost, IWpfTextViewMargin marginContainer)
+        {
+            return new DocumentInsightsMargin(wpfTextViewHost.TextView, DocumentService);
         }
 
         #endregion

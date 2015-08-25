@@ -31,7 +31,7 @@ namespace Flatcode.VSEssentials.Extensions.CommentFormatter
     {
         #region Constants
 
-        internal const String CommentBlock = "comment - block";
+        public const String CommentBlock = "comment - block";
 
         #endregion
     }

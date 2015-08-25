@@ -31,7 +31,7 @@ namespace Flatcode.VSEssentials.Extensions.CommentFormatter
 {
     [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [ProvideOptionPage(typeof(CommentFormatterOptionPage), "Extensions", "Comment Formatter", 120, 110, false)]
+    [ProvideOptionPage(typeof(CommentFormatterOptionPage), "VSEssentials", "Comment Formatter", 120, 110, false)]
     [Guid(CommentFormatterGuids.Package)]
     sealed class CommentFormatterPackage : Package
     {

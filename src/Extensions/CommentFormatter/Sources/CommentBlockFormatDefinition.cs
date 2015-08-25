@@ -41,8 +41,10 @@ namespace Flatcode.VSEssentials.Extensions.CommentFormatter
 
         public CommentBlockFormatDefinition()
         {
-            BackgroundColor = Colors.Green;
-            DisplayName = LocalizationProvider.Current.ResourceManager.GetString("CommentBlockFormatDefinitionDisplayName");
+            // By default, comment blocks are green and boldface
+            DisplayName = (new LocalLocalizationProvider()).GetString(LocalLocalizationResourceNames.CommentBlockFormatDefinitionDisplayName);
+            ForegroundColor = Colors.Green;
+            IsBold = true;
         }
 
         #endregion

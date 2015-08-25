@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VsixLanguagePack Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema-lp/2010">
+  <LocalizedName>Document Insights</LocalizedName>
+  <LocalizedDescription xml:space="preserve">Zeigt zusätzliche Dokumentinformationen am unteren Rand des Text-Editors an.</LocalizedDescription>
+  <License>License.txt</License>
+</VsixLanguagePack>

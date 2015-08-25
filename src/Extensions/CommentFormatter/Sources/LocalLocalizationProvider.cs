@@ -21,29 +21,29 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using Flatcode.VSEssentials.Common;
+using System;
+using System.Reflection;
 
 #endregion
 
 namespace Flatcode.VSEssentials.Extensions.CommentFormatter
 {
-    static class Empty
+    sealed class LocalLocalizationProvider : LocalizationProvider
     {
-        #region Singleton Class
+        #region Constructors
 
-        static class Instance<T>
+        public LocalLocalizationProvider() : base(Assembly.GetExecutingAssembly())
         {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
         }
 
         #endregion
 
         #region Methods
 
-        public static IList<T> List<T>()
+        public String GetString(String resourceName)
         {
-            return Instance<T>.List;
+            return ResourceManager.GetString(resourceName);
         }
 
         #endregion

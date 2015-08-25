@@ -11,13 +11,13 @@ indent_size = 4
 insert_final_newline = true
 
 # XML Project Files
-[.{csproj,proj}]
+[*.{csproj,proj}]
 indent_size = 2
 
 # XML Configuration Files
-[.{config,nuspec,props,resx,ruleset,targets}]
+[*.{config,nuspec,props,resx,ruleset,targets}]
 indent_size = 2
 
 # XML Markup Files
-[.{xml,xaml}]
+[*.{xml,xaml}]
 indent_size = 2

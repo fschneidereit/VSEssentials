@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015 Flatcode.net
+ *  Copyright © 2015
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,30 +21,23 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using System;
 
 #endregion
 
 namespace Flatcode.VSEssentials.Extensions.CommentFormatter
 {
-    static class Empty
+    static class LocalLocalizationResourceNames
     {
-        #region Singleton Class
+        #region Constants
 
-        static class Instance<T>
-        {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public static IList<T> List<T>()
-        {
-            return Instance<T>.List;
-        }
+        public const String CommentBlockFormatDefinitionDisplayName = "CommentBlockFormatDefinitionDisplayName";
+        public const String FadeDocumentationTagsDescription = "FadeDocumentationTagsDescription";
+        public const String FadeDocumentationTagsDisplayName = "FadeDocumentationTagsDisplayName";
+        public const String ItalicizeCommentsDescription = "ItalicizeCommentsDescription";
+        public const String ItalicizeCommentsDisplayName = "ItalicizeCommentsDisplayName";
+        public const String ItalicizeDocumentationCommentsDescription = "ItalicizeDocumentationCommentsDescription";
+        public const String ItalicizeDocumentationCommentsDisplayName = "ItalicizeDocumentationCommentsDisplayName";
 
         #endregion
     }

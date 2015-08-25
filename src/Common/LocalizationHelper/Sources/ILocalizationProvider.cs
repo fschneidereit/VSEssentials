@@ -22,60 +22,16 @@
 #region Using Directives
 
 using System;
-using System.Reflection;
-using System.Resources;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
+namespace Flatcode.VSEssentials.Common
 {
-    sealed class LocalizationProvider
+    public interface ILocalizationProvider
     {
-        #region Singleton Class
+        #region Methods
 
-        class Singleton
-        {
-            internal static readonly LocalizationProvider Instance = new LocalizationProvider();
-            static Singleton() { }
-        }
-
-        #endregion
-
-        #region Constants
-
-        public const String ResourceName = "StringResources";
-
-        #endregion
-
-        #region Fields
-
-        readonly ResourceManager resourceManager;
-
-        #endregion
-
-        #region Constructors
-
-        LocalizationProvider()
-        {
-            // Instance initialization
-            resourceManager = new ResourceManager(ResourceName, Assembly.GetCallingAssembly());
-        }
-
-        #endregion
-
-        #region Properties
-
-        public ResourceManager ResourceManager {
-            get { return resourceManager; }
-        }
-
-        #endregion
-
-        #region Properties: Static
-
-        public static LocalizationProvider Current {
-            get { return Singleton.Instance; }
-        }
+        Boolean TryGetString(String resourceName, out String value);
 
         #endregion
     }

@@ -21,6 +21,7 @@
 
 #region Using Directives
 
+using Flatcode.VSEssentials.Common;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel;
@@ -33,24 +34,27 @@ namespace Flatcode.VSEssentials.Extensions.CommentFormatter
     {
         #region Properties
 
-        [Category("Behavior"), LocalizedDisplayName("FadeDocumentationTagsDisplayName")]
-        [LocalizedDescription("FadeDocumentationTagsDescription")]
+        [Category("Behavior")]
+        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.FadeDocumentationTagsDisplayName)]
+        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.FadeDocumentationTagsDescription)]
         [DefaultValue(true)]
         public Boolean FadeDocumentationTags {
             get { return CommentFormatterOptions.Current.FadeDocumentationTags; }
             set { CommentFormatterOptions.Current.FadeDocumentationTags = value; }
         }
 
-        [Category("Behavior"), LocalizedDisplayName("ItalicizeCommentsDisplayName")]
-        [LocalizedDescription("ItalicizeCommentsDescription")]
+        [Category("Behavior")]
+        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeCommentsDisplayName)]
+        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeCommentsDescription)]
         [DefaultValue(false)]
         public Boolean ItalicizeComments {
             get { return CommentFormatterOptions.Current.ItalicizeComments; }
             set { CommentFormatterOptions.Current.ItalicizeComments = value; }
         }
 
-        [Category("Behavior"), LocalizedDisplayName("ItalicizeDocumentationCommentsDisplayName")]
-        [LocalizedDescription("ItalicizeDocumentationCommentsDescription")]
+        [Category("Behavior")]
+        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeDocumentationCommentsDisplayName)]
+        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeDocumentationCommentsDescription)]
         [DefaultValue(true)]
         public Boolean ItalicizeDocumentationComments {
             get { return CommentFormatterOptions.Current.ItalicizeDocumentationComments; }

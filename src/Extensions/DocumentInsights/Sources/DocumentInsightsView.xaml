@@ -1,0 +1,95 @@
+﻿<!--================================================================================================
+
+  Copyright © 2015 Flatcode.net
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+  and associated documentation files (the "Software"), to deal in the Software without
+  restriction, including without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+  Software is furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all copies or
+  substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+=================================================================================================-->
+<UserControl x:Class="Flatcode.VSEssentials.Extensions.DocumentInsights.DocumentInsightsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Flatcode.VSEssentials.Extensions.DocumentInsights"
+             xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             Background="{DynamicResource {x:Static shell:VsBrushes.EditorExpansionFillKey}}"
+             Foreground="{DynamicResource {x:Static shell:VsBrushes.EditorExpansionTextKey}}">
+  <UserControl.Resources>
+    <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+  </UserControl.Resources>
+  <StackPanel Orientation="Horizontal" Margin="4">
+    <StackPanel Orientation="Horizontal" Margin="0,0,10,0"  Visibility="{Binding ShowLineInfo, Converter={StaticResource VisibilityConverter}}">
+      <StackPanel.ToolTip>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ActualLineCountLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ActualLineCount}" HorizontalAlignment="Right" />
+          <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SourceLineCountLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SourceLineCount}" HorizontalAlignment="Right" />
+          <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding DifferenceLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding LineDifference, StringFormat='{}{0:+0;-0;0}'}" HorizontalAlignment="Right" />
+        </Grid>
+      </StackPanel.ToolTip>
+      <TextBlock VerticalAlignment="Center" Text="{Binding LineInfoLabel, Mode=OneWay}" FontWeight="Bold" />
+      <TextBlock VerticalAlignment="Center" MinWidth="80">
+        <TextBlock.Text>
+          <MultiBinding StringFormat="{}{0} [{1}] ({2:+0;-0;0})">
+            <Binding Path="ActualLineCount" />
+            <Binding Path="SourceLineCount" />
+            <Binding Path="LineDifference" />
+          </MultiBinding>
+        </TextBlock.Text>
+      </TextBlock>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="0,0,10,0"  Visibility="{Binding ShowCharInfo, Converter={StaticResource VisibilityConverter}}">
+      <StackPanel.ToolTip>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ActualCharCountLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ActualCharCount}" HorizontalAlignment="Right" />
+          <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SourceCharCountLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SourceCharCount}" HorizontalAlignment="Right" />
+          <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding DifferenceLabel, Mode=OneWay}" Margin="0,0,5,0" />
+          <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding CharDifference, StringFormat='{}{0:+0;-0;0}'}" HorizontalAlignment="Right" />
+        </Grid>
+      </StackPanel.ToolTip>
+      <TextBlock VerticalAlignment="Center" Text="{Binding CharInfoLabel, Mode=OneWay}" FontWeight="Bold" />
+      <TextBlock VerticalAlignment="Center" MinWidth="80">
+        <TextBlock.Text>
+          <MultiBinding StringFormat="{}{0} [{1}] ({2:+0;-0;0})">
+            <Binding Path="ActualCharCount" />
+            <Binding Path="SourceCharCount" />
+            <Binding Path="CharDifference" />
+          </MultiBinding>
+        </TextBlock.Text>
+      </TextBlock>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

@@ -117,17 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="110" xml:space="preserve">
-    <value>Comment Formatter</value>
+  <data name="ActualCharCountLabel" xml:space="preserve">
+    <value>Characters (Actual): </value>
   </data>
-  <data name="112" xml:space="preserve">
-    <value>Provides additional formatting behavior for source file comments.</value>
+  <data name="ActualLineCountLabel" xml:space="preserve">
+    <value>Lines (Actual): </value>
   </data>
-  <data name="120" xml:space="preserve">
-    <value>VSEssentials</value>
+  <data name="CharInfoLabel" xml:space="preserve">
+    <value>Chars: </value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Package.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="DifferenceLabel" xml:space="preserve">
+    <value>Difference: </value>
+  </data>
+  <data name="EnableCharInfoDescription" xml:space="preserve">
+    <value>Specifies whether detailed character information is displayed.</value>
+  </data>
+  <data name="EnableCharInfoDisplayName" xml:space="preserve">
+    <value>Enable character information</value>
+  </data>
+  <data name="EnableLineInfoDescription" xml:space="preserve">
+    <value>Specifies whether detailed line information is displayed.</value>
+  </data>
+  <data name="EnableLineInfoDisplayName" xml:space="preserve">
+    <value>Enable line information</value>
+  </data>
+  <data name="LineInfoLabel" xml:space="preserve">
+    <value>Lines: </value>
+  </data>
+  <data name="ShowMarginDescription" xml:space="preserve">
+    <value>Specifies whether the document insights margin is visible at the bottom of the text editor.</value>
+  </data>
+  <data name="ShowMarginDisplayName" xml:space="preserve">
+    <value>Show document insights margin</value>
+  </data>
+  <data name="SourceCharCountLabel" xml:space="preserve">
+    <value>Characters (Source): </value>
+  </data>
+  <data name="SourceLineCountLabel" xml:space="preserve">
+    <value>Lines (Source): </value>
   </data>
 </root>
