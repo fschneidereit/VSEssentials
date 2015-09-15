@@ -1,0 +1,68 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="14.0">
+
+  <!--Import Build Tasks-->
+  <Import Project="$(MSBuildThisFileDirectory)Build.tasks" />
+
+  <!--Properties-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildEnvironment Condition=" '$(BuildEnvironment)' == '' ">Windows</BuildEnvironment>
+    <BuildToolsPath>$(MSBuildThisFileDirectory)build\</BuildToolsPath>
+    <TargetSolution>$(MSBuildThisFileDirectory)VSEssentials.sln</TargetSolution>
+  </PropertyGroup>
+
+  <!--Properties: NuGet-->
+  <PropertyGroup>
+    <NuGetPath>$(BuildToolsPath)</NuGetPath>
+    <NuGetCommand>nuget.exe</NuGetCommand>
+  </PropertyGroup>
+
+  <!--Target: Check Preconditions-->
+  <Target Name="CheckPreconditions">
+    <Error Condition=" '$(BuildEnvironment)' != 'Windows' " Text="The build environment is currently limited to Windows." />
+  </Target>
+
+  <!--Target: Check Prerequisites-->
+  <Target Name="CheckPrerequisites" DependsOnTargets="CheckPreconditions">
+    <!--Try to find NuGet in the local environment-->
+    <FindNuGet Condition="!Exists('$(NuGetPath)nuget.exe')" ContinueOnError="true">
+      <Output TaskParameter="Result" PropertyName="NuGetPath" />
+    </FindNuGet>
+
+    <!--If NuGet is not present, download it from NuGet.org and store it in the working directory-->
+    <MakeDir Directories="$(NuGetPath)" Condition="!Exists('$(NuGetPath)')" />
+    <DownloadNuGet OutputFile="$(NuGetPath)nuget.exe" Condition="!Exists('$(NuGetPath)nuget.exe')" />
+  </Target>
+
+  <!--Target: Restore Packages-->
+  <Target Name="RestorePackages" DependsOnTargets="CheckPrerequisites">
+    <Error Condition="!Exists('$(NuGetPath)nuget.exe')" Text="Unable to locate NuGet executable." />
+    <Exec Command="$(NuGetPath)$(NuGetCommand) restore &quot;$(TargetSolution)&quot; "/>
+  </Target>
+
+  <!-- Target: Build (Default)-->
+  <Target Name="Build" DependsOnTargets="RestorePackages">
+    <MSBuild BuildInParallel="false"
+             Projects="$(TargetSolution)"
+             Properties="RestorePackages=false;TreatWarningsAsErrors=true"
+             Targets="Build" />
+  </Target>
+
+  <!--Target: Clean-->
+  <Target Name="Clean">
+    <MSBuild BuildInParallel="false"
+             Projects="$(TargetSolution)"
+             Properties="RestorePackages=false"
+             Targets="Clean" />
+  </Target>
+
+  <!--Target: Rebuild-->
+  <Target Name="Rebuild">
+    <MSBuild BuildInParallel="false"
+             Projects="$(TargetSolution)"
+             Properties="RestorePackages=false;TreatWarningsAsErrors=true"
+             Targets="Rebuild" />
+  </Target>
+
+</Project>

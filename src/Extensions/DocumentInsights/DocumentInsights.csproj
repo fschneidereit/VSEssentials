@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\Flatcode.BuildTools.CSharp.1.0.0\build\Flatcode.BuildTools.CSharp.props" Condition="Exists('..\..\..\packages\Flatcode.BuildTools.CSharp.1.0.0\build\Flatcode.BuildTools.CSharp.props')" />
   <Import Project="..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
@@ -12,6 +13,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BaseIntermediateOutputPath Condition=" '$(BaseIntermediateOutputPath)' == '' ">$(SolutionDir)obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath Condition=" '$(IntermediateOutputPath)' == '' ">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{9B35A908-6979-45DE-A1A0-DCC1AF9DC431}</ProjectGuid>
@@ -20,11 +26,6 @@
     <RootNamespace>Flatcode.VSEssentials.Extensions.DocumentInsights</RootNamespace>
     <AssemblyName>DocumentInsights</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)snk\VSEssentials.snk</AssemblyOriginatorKeyFile>
-    <BaseIntermediateOutputPath>$(SolutionDir)obj</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
-    <OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
@@ -258,6 +259,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Flatcode.BuildTools.1.0.0\build\Flatcode.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Flatcode.BuildTools.1.0.0\build\Flatcode.BuildTools.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Flatcode.BuildTools.CSharp.1.0.0\build\Flatcode.BuildTools.CSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Flatcode.BuildTools.CSharp.1.0.0\build\Flatcode.BuildTools.CSharp.props'))" />
   </Target>
   <Import Project="..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\..\..\packages\Microsoft.VSSDK.BuildTools.14.0.23107\build\Microsoft.VSSDK.BuildTools.targets')" />
+  <Import Project="..\..\..\packages\Flatcode.BuildTools.1.0.0\build\Flatcode.BuildTools.targets" Condition="Exists('..\..\..\packages\Flatcode.BuildTools.1.0.0\build\Flatcode.BuildTools.targets')" />
 </Project>

@@ -1,0 +1,71 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!--Inline Task: FindNuGet-->
+  <UsingTask TaskName="FindNuGet" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Result ParameterType="System.String" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        try {
+            // Look for NuGet on the path
+            String pathVariable = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+            Log.LogMessage("Looking for NuGet.exe in the local environment...");
+            if (pathVariable != null) {
+                foreach (String path in pathVariable.Split(';')) {
+                    if (File.Exists(Path.Combine(path, "nuget.exe"))) {
+                        Result = path.EndsWith("\\") ? path : path + "\\";
+                        Log.LogMessage("Found NuGet.exe in {0}", path);
+                        return true;
+                    }
+                }
+            }
+
+            Log.LogMessage("No success.");
+            return false;            
+        } catch (Exception e) {
+            Log.LogErrorFromException(e);
+            return false;
+        }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!--Inline Task: DownloadNuGet-->
+  <UsingTask TaskName="DownloadNuGet" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <OutputFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Net" />
+      <Using Namespace="Microsoft.Build.Framework" />
+      <Using Namespace="Microsoft.Build.Utilities" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        try {
+            OutputFile = Path.GetFullPath(OutputFile);
+
+            Log.LogMessage("Downloading NuGet.exe from NuGet.org...");
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile("https://www.nuget.org/nuget.exe", OutputFile);
+            Log.LogMessage("Download complete.");
+
+            return true;
+        } catch (Exception e) {
+            Log.LogErrorFromException(e);
+            return false;
+        }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+</Project>
