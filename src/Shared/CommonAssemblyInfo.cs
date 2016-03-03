@@ -1,6 +1,6 @@
 /***************************************************************************************************
  *
- *  Copyright © 2015 Flatcode.net Developer Community
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -28,8 +28,8 @@ using System.Reflection;
 #region Attributes
 
 [assembly: AssemblyProduct("VSEssentials")]
-[assembly: AssemblyCompany("Flatcode.net Developer Community")]
-[assembly: AssemblyCopyright("© 2015 Flatcode.net Developer Community")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyCopyright("© 2015-2016 Florian Schneidereit")]
 [assembly: AssemblyTrademark("")]
 
 #endregion

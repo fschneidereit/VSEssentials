@@ -25,7 +25,7 @@ using System;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.Extensions.DocumentInsights
 {
     static class LocalLocalizationResourceNames
     {

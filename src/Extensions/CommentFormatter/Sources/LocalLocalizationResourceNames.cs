@@ -25,7 +25,7 @@ using System;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.Extensions.CommentFormatter
 {
     static class LocalLocalizationResourceNames
     {

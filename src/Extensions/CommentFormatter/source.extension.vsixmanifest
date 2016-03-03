@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="531ff7ab-ce59-430a-b93e-1a784a2ca356" Version="1.0.0" Language="en-US" Publisher="Flatcode.net" />
+        <Identity Id="531ff7ab-ce59-430a-b93e-1a784a2ca356" Version="1.0.0" Language="en-US" Publisher="Florian Schneidereit" />
         <DisplayName>Comment Formatter</DisplayName>
         <Description xml:space="preserve">Provides additional formatting behavior for source file comments.</Description>
-        <MoreInfo>https://github.com/flatcode/VSEssentials</MoreInfo>
+        <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
         <License>en-US\License.txt</License>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\PreviewImage.png</PreviewImage>

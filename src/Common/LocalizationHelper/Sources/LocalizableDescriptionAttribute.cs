@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015 Flatcode.net
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -26,7 +26,7 @@ using System.ComponentModel;
 
 #endregion
 
-namespace Flatcode.VSEssentials.Common
+namespace VSEssentials.Common
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Event)]
     public sealed class LocalizableDescriptionAttribute : DescriptionAttribute

@@ -13,7 +13,7 @@
     <ProjectGuid>{707EFBA1-90CB-4843-83D9-349A532757A4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Flatcode.VSEssentials.Common</RootNamespace>
+    <RootNamespace>VSEssentials.Common</RootNamespace>
     <AssemblyName>LocalizationHelper</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <NuGetPackageImportStamp>

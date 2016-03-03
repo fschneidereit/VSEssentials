@@ -23,7 +23,7 @@
     <ProjectGuid>{9B35A908-6979-45DE-A1A0-DCC1AF9DC431}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Flatcode.VSEssentials.Extensions.DocumentInsights</RootNamespace>
+    <RootNamespace>VSEssentials.Extensions.DocumentInsights</RootNamespace>
     <AssemblyName>DocumentInsights</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>

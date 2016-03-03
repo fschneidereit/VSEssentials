@@ -23,7 +23,7 @@
     <ProjectGuid>{D01956E3-ABB5-4F2C-B1C3-679E96650F9D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Flatcode.VSEssentials.Extensions.CommentFormatter</RootNamespace>
+    <RootNamespace>VSEssentials.Extensions.CommentFormatter</RootNamespace>
     <AssemblyName>CommentFormatter</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
