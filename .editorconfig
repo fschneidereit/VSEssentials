@@ -1,26 +1,33 @@
-﻿# EditorConfig is awesome: http://EditorConfig.org
+# EditorConfig is awesome: http://EditorConfig.org
 
-# Top-Most Configuration File
+# Top-most configuration file
 root = true
 
-# Default Formatting
-# Indent by four spaces and insert final new-line
+# Default style
 [*]
 indent_style = space
 indent_size = 4
 insert_final_newline = true
 
-# XML Project Files
-[*.{csproj,proj}]
+# Markdown files
+[.{md,markdown,mdown}]
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+# XML project files
+[*.{csproj,proj,props,targets,tasks}]
+indent_style = space
 indent_size = 2
 insert_final_newline = false
 
-# XML Configuration Files
-[*.{config,nuspec,props,resx,ruleset,targets,tasks}]
+# XML configuration files
+[*.{config,nuspec}]
+indent_style = space
 indent_size = 2
 insert_final_newline = false
 
-# XML Markup Files
+# XML markup files
 [*.{xml,xaml}]
+indent_style = space
 indent_size = 2
 insert_final_newline = false
