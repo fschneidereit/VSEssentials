@@ -52,6 +52,7 @@ namespace VSEssentials.SemanticFormatter
         public SemanticFormatter(VisualStudioWorkspace workspace, IClassificationTypeRegistryService classificationTypeRegistry)
         {
             // Initialize instance
+            _context = SemanticFormatterContext.Empty;
             _fieldIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.FieldIdentifier);
             _workspace = workspace;
         }
@@ -93,7 +94,7 @@ namespace VSEssentials.SemanticFormatter
 
             var snapshot = spans[0].Snapshot;
 
-            if (Context == null || Context.TextSnapshot != snapshot) {
+            if (Context.IsEmpty || Context.TextSnapshot != snapshot) {
                 var task = SemanticFormatterContext.CreateAsync(snapshot);
                 task.Wait();
                 if (task.IsFaulted) {
@@ -158,6 +159,16 @@ namespace VSEssentials.SemanticFormatter
 
         private ISymbol GetSymbolFromNode(SyntaxNode node)
         {
+            if (node is CS.Syntax.ArgumentSyntax) {
+                var expression = ((CS.Syntax.ArgumentSyntax)node).Expression;
+                return Context.SemanticModel.GetSymbolInfo(expression).Symbol;
+            }
+
+            if (node is VB.Syntax.SimpleArgumentSyntax) {
+                var expression = ((VB.Syntax.SimpleArgumentSyntax)node).Expression;
+                return Context.SemanticModel.GetSymbolInfo(expression).Symbol;
+            }
+
             if ((node is CS.Syntax.VariableDeclaratorSyntax) || (node is VB.Syntax.VariableDeclaratorSyntax)) {
                 return Context.SemanticModel.GetDeclaredSymbol(node);
             }

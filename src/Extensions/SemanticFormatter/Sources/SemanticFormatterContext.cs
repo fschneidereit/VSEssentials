@@ -22,6 +22,7 @@
 #region Using Directives
 
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -31,8 +32,11 @@ using Microsoft.VisualStudio.Text;
 
 namespace VSEssentials.SemanticFormatter
 {
-    internal class SemanticFormatterContext
+    [StructLayout(LayoutKind.Auto)]
+    internal struct SemanticFormatterContext
     {
+        public static readonly SemanticFormatterContext Empty = new SemanticFormatterContext(null, null, null, null);
+
         #region Fields
 
         private readonly Document _document;
@@ -64,6 +68,10 @@ namespace VSEssentials.SemanticFormatter
             get { return _document; }
         }
 
+        public Boolean IsEmpty {
+            get { return Document == null && SemanticModel == null && SyntaxRoot == null & TextSnapshot == null; }
+        }
+
         public SemanticModel SemanticModel {
             get { return _semanticModel; }
         }
@@ -78,7 +86,7 @@ namespace VSEssentials.SemanticFormatter
 
         #endregion
 
-        #region Methods
+        #region Methods: Static
 
         public static async Task<SemanticFormatterContext> CreateAsync(ITextSnapshot textSnapshot)
         {
