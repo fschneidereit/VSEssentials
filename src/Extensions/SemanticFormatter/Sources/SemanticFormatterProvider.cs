@@ -40,10 +40,12 @@ namespace VSEssentials.SemanticFormatter
     {
         #region Fields
 
+#pragma warning disable CS0649
         [Import]
         private IClassificationTypeRegistryService _classificationTypeRegistry;
         [Import]
         private VisualStudioWorkspace _workspace;
+#pragma warning restore CS0649
 
         #endregion
 
