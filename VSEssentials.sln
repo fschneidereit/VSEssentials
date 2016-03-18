@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{6A41AB02-1D0C-463A-89C3-0D117A6E1DE4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AE981D8C-0395-47BA-BA2E-7CFC87D2352B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizationHelper", "src\Common\LocalizationHelper\LocalizationHelper.csproj", "{707EFBA1-90CB-4843-83D9-349A532757A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticFormatter", "src\Extensions\SemanticFormatter\SemanticFormatter.csproj", "{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{707EFBA1-90CB-4843-83D9-349A532757A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{707EFBA1-90CB-4843-83D9-349A532757A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{707EFBA1-90CB-4843-83D9-349A532757A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{D01956E3-ABB5-4F2C-B1C3-679E96650F9D} = {6A41AB02-1D0C-463A-89C3-0D117A6E1DE4}
 		{9B35A908-6979-45DE-A1A0-DCC1AF9DC431} = {6A41AB02-1D0C-463A-89C3-0D117A6E1DE4}
 		{707EFBA1-90CB-4843-83D9-349A532757A4} = {AE981D8C-0395-47BA-BA2E-7CFC87D2352B}
+		{BDE9CF40-30DB-4BAE-84CC-4AD91C8E38E5} = {6A41AB02-1D0C-463A-89C3-0D117A6E1DE4}
 	EndGlobalSection
 EndGlobal
