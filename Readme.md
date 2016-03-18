@@ -47,3 +47,17 @@ The configuration settings for this extension can be found in the Visual&nbsp;St
 
 #### Compatibility ####
 - Visual&nbsp;Studio&reg; 2015 (all Editions)
+
+### Semantic Formatter ###
+
+The **Semantic Formatter** extension provides additional formatting for C# and Visual Basic source code. Right now, the only feature available is the italicization of field identifiers, which makes them easier to distinguish from parameters and local variables.  
+
+#### Feature Summary ####
+- Italicized field identifiers
+
+#### Language Support ####
+- English
+- German
+
+#### Compatibility ####
+- Visual&nbsp;Studio&reg; 2015 (all Editions)
