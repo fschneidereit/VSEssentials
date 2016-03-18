@@ -20,6 +20,12 @@ indent_style = space
 indent_size = 2
 insert_final_newline = false
 
+# XML resource files
+[*.{resx}]
+indent_style = space
+indent_size = 2
+insert_final_newline = false
+
 # XML configuration files
 [*.{config,nuspec}]
 indent_style = space
@@ -28,6 +34,12 @@ insert_final_newline = false
 
 # XML markup files
 [*.{xml,xaml}]
+indent_style = space
+indent_size = 2
+insert_final_newline = false
+
+# Visual Studio extension files
+[*.{vsixlangpack,vsixmanifest}]
 indent_style = space
 indent_size = 2
 insert_final_newline = false
