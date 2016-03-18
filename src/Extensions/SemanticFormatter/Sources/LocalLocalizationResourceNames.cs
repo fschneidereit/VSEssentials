@@ -21,28 +21,17 @@
 
 #region Using Directives
 
-using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
+using System;
 
 #endregion
 
 namespace VSEssentials.SemanticFormatter
 {
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.FieldIdentifier)]
-    [Name(ClassificationTypeNames.FieldIdentifier)]
-    [Order(After = Priority.Default)]
-    [UserVisible(true)]
-    internal sealed class FieldIdentifierFormatDefinition : ClassificationFormatDefinition
+    internal static class LocalLocalizationResourceNames
     {
-        #region Constructors
+        #region Constants
 
-        public FieldIdentifierFormatDefinition()
-        {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.FieldIdentifierFormatDefinitionDisplayName);
-            IsItalic = true;
-        }
+        public const String FieldIdentifierFormatDefinitionDisplayName = nameof(FieldIdentifierFormatDefinitionDisplayName);
 
         #endregion
     }

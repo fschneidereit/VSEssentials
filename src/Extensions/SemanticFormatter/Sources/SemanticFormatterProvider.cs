@@ -53,7 +53,8 @@ namespace VSEssentials.SemanticFormatter
 
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
-            return (ITagger<T>)buffer.Properties.GetOrCreateSingletonProperty(() => new SemanticFormatter(_workspace, _classificationTypeRegistry));
+            return (ITagger<T>)buffer.Properties.GetOrCreateSingletonProperty(
+                () => new SemanticFormatter(_workspace, _classificationTypeRegistry));
         }
 
         #endregion

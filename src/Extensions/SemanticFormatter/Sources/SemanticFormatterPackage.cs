@@ -21,27 +21,39 @@
 
 #region Using Directives
 
-using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
+using System;
+using System.Runtime.InteropServices;
+using Microsoft.VisualStudio.Shell;
 
 #endregion
 
 namespace VSEssentials.SemanticFormatter
 {
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.FieldIdentifier)]
-    [Name(ClassificationTypeNames.FieldIdentifier)]
-    [Order(After = Priority.Default)]
-    [UserVisible(true)]
-    internal sealed class FieldIdentifierFormatDefinition : ClassificationFormatDefinition
+    [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
+    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [Guid(SemanticFormatterGuids.Package)]
+    //[ProvideOptionPage(typeof(SemanticFormatterOptionPage), "VSEssentials", "Semantic Formatter", 120, 110, false)]
+    internal sealed class SemanticFormatterPackage : Package
     {
+        #region Constants
+
+        public const String ProductVersion = "1.0.0";
+
+        #endregion
+
         #region Constructors
 
-        public FieldIdentifierFormatDefinition()
+        public SemanticFormatterPackage()
         {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.FieldIdentifierFormatDefinitionDisplayName);
-            IsItalic = true;
+        }
+
+        #endregion
+
+        #region Methods: Overridden
+
+        protected override void Initialize()
+        {
+            base.Initialize();
         }
 
         #endregion

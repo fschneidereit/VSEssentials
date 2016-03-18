@@ -30,7 +30,8 @@ using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
-using CSharp = Microsoft.CodeAnalysis.CSharp;
+using CS = Microsoft.CodeAnalysis.CSharp;
+using VB = Microsoft.CodeAnalysis.VisualBasic;
 
 #endregion
 
@@ -40,10 +41,9 @@ namespace VSEssentials.SemanticFormatter
     {
         #region Fields
 
+        private SemanticFormatterContext _context;
         private readonly IClassificationType _fieldIdentifierType;
         private readonly VisualStudioWorkspace _workspace;
-
-        private SemanticFormatterContext _context;
 
         #endregion
 
@@ -88,7 +88,7 @@ namespace VSEssentials.SemanticFormatter
         public IEnumerable<ITagSpan<IClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             if (spans.Count == 0) {
-                return Empty<ITagSpan<IClassificationTag>>.Array;
+                return Empty.Array<ITagSpan<IClassificationTag>>();
             }
 
             var snapshot = spans[0].Snapshot;
@@ -97,28 +97,26 @@ namespace VSEssentials.SemanticFormatter
                 var task = SemanticFormatterContext.CreateAsync(snapshot);
                 task.Wait();
                 if (task.IsFaulted) {
-                    return Empty<ITagSpan<IClassificationTag>>.Array;
+                    return Empty.Array<ITagSpan<IClassificationTag>>();
                 }
                 Context = task.Result;
             }
 
             var identifiers = GetIdentifiersInSnapshotSpans(spans);
-            var tags = new List<TagSpan<IClassificationTag>>();
+            var tags = new List<ITagSpan<IClassificationTag>>();
 
             foreach (var identifier in identifiers) {
                 var node = Context.SyntaxRoot.FindNode(identifier.TextSpan);
-                var symbol = Context.SemanticModel.GetSymbolInfo(node).Symbol;
+                var symbol = GetSymbolFromNode(node);
+
                 if (symbol == null) {
                     continue;
                 }
-                switch (symbol.Kind) {
-                    case SymbolKind.Field:
-                        if (symbol.ContainingType.TypeKind != TypeKind.Enum) {
-                            tags.Add(new TagSpan<IClassificationTag>(
-                                new SnapshotSpan(snapshot, identifier.TextSpan.Start, identifier.TextSpan.Length),
-                                new ClassificationTag(FieldIdentifierType)));
-                        }
-                        break;
+
+                if (symbol.Kind == SymbolKind.Field) {
+                    if (symbol.ContainingType.TypeKind != TypeKind.Enum) {
+                        tags.Add(CreateFieldIdentifierTag(snapshot, identifier.TextSpan));
+                    }
                 }
             }
 
@@ -129,26 +127,42 @@ namespace VSEssentials.SemanticFormatter
 
         #region Methods: Implementation
 
+        private ITagSpan<IClassificationTag> CreateFieldIdentifierTag(ITextSnapshot snapshot, TextSpan span)
+        {
+            return new TagSpan<IClassificationTag>(
+                new SnapshotSpan(snapshot, span.Start, span.Length),
+                new ClassificationTag(FieldIdentifierType));
+        }
+
         private IEnumerable<ClassifiedSpan> GetIdentifiersInSnapshotSpans(NormalizedSnapshotSpanCollection spans)
         {
             // Get classified spans
-            List<ClassifiedSpan> classifiedSpans = new List<ClassifiedSpan>();
-
-            foreach (SnapshotSpan span in spans) {
+            var classifiedSpans = new List<ClassifiedSpan>();
+            foreach (var span in spans) {
                 var textSpan = TextSpan.FromBounds(span.Start, span.End);
                 classifiedSpans.AddRange(Classifier.GetClassifiedSpans(Context.SemanticModel, textSpan, Workspace));
             }
 
             // Filter identifiers
-            List<ClassifiedSpan> identifierSpans = new List<ClassifiedSpan>();
-
-            foreach (ClassifiedSpan classifiedSpan in classifiedSpans) {
-                if (classifiedSpan.ClassificationType.Equals(KnownClassificationTypeNames.Identifier, StringComparison.InvariantCultureIgnoreCase)) {
+            var identifierSpans = new List<ClassifiedSpan>();
+            foreach (var classifiedSpan in classifiedSpans) {
+                if (classifiedSpan.ClassificationType.Equals(
+                    KnownClassificationTypeNames.Identifier,
+                    StringComparison.InvariantCultureIgnoreCase)) {
                     identifierSpans.Add(classifiedSpan);
                 }
             }
 
             return identifierSpans;
+        }
+
+        private ISymbol GetSymbolFromNode(SyntaxNode node)
+        {
+            if ((node is CS.Syntax.VariableDeclaratorSyntax) || (node is VB.Syntax.VariableDeclaratorSyntax)) {
+                return Context.SemanticModel.GetDeclaredSymbol(node);
+            }
+
+            return Context.SemanticModel.GetSymbolInfo(node).Symbol;
         }
 
         #endregion

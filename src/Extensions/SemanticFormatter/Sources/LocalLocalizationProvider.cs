@@ -21,27 +21,47 @@
 
 #region Using Directives
 
-using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
+using VSEssentials.Common;
+using System;
+using System.Reflection;
 
 #endregion
 
 namespace VSEssentials.SemanticFormatter
 {
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.FieldIdentifier)]
-    [Name(ClassificationTypeNames.FieldIdentifier)]
-    [Order(After = Priority.Default)]
-    [UserVisible(true)]
-    internal sealed class FieldIdentifierFormatDefinition : ClassificationFormatDefinition
+    internal sealed class LocalLocalizationProvider : LocalizationProvider
     {
+        #region Nested Singleton Class
+
+        private sealed class Singleton
+        {
+            public static readonly LocalLocalizationProvider Instance = new LocalLocalizationProvider();
+            static Singleton() { }
+        }
+
+        #endregion
+
         #region Constructors
 
-        public FieldIdentifierFormatDefinition()
+        public LocalLocalizationProvider() : base(Assembly.GetExecutingAssembly())
         {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.FieldIdentifierFormatDefinitionDisplayName);
-            IsItalic = true;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public static LocalLocalizationProvider Current {
+            get { return Singleton.Instance; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public String GetString(String resourceName)
+        {
+            return ResourceManager.GetString(resourceName);
         }
 
         #endregion

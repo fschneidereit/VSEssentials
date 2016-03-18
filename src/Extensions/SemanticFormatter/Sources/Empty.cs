@@ -27,11 +27,23 @@ using System;
 
 namespace VSEssentials.SemanticFormatter
 {
-    internal static class Empty<T>
+    internal static class Empty
     {
-        #region Fields
+        #region Nested Typed Class
 
-        public static readonly T[] Array = new T[0];
+        private sealed class Instance<T>
+        {
+            public static readonly T[] Array = new T[0];
+        }
+
+        #endregion
+
+        #region Methods
+
+        public static T[] Array<T>()
+        {
+            return Instance<T>.Array;
+        }
 
         #endregion
     }

@@ -22,16 +22,17 @@
 #region Using Directives
 
 using System;
+using System.ComponentModel;
 
 #endregion
 
 namespace VSEssentials.SemanticFormatter
 {
-    internal sealed class SemanticFormatterOptions
+    internal sealed class SemanticFormatterOptions : INotifyPropertyChanged
     {
         #region Nested Singleton Class
 
-        private class Singleton
+        private sealed class Singleton
         {
             internal static readonly SemanticFormatterOptions Instance = new SemanticFormatterOptions();
             static Singleton() { }
@@ -40,20 +41,39 @@ namespace VSEssentials.SemanticFormatter
         #endregion
 
         #region Fields
+
+        private Boolean _enableSemanticFormatting;
+
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SemanticFormatterOptions" /> class.
-        /// </summary>
         public SemanticFormatterOptions()
         {
+            // Instance initialization
+            _enableSemanticFormatting = true;
         }
 
         #endregion
 
+        #region Events
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
         #region Properties
+
+        public Boolean EnableSemanticFormatting {
+            get { return _enableSemanticFormatting; }
+            set {
+                if (_enableSemanticFormatting != value) {
+                    _enableSemanticFormatting = value;
+                    OnPropertyChanged(nameof(EnableSemanticFormatting));
+                }
+            }
+        }
+
         #endregion
 
         #region Properties: Static
@@ -64,7 +84,17 @@ namespace VSEssentials.SemanticFormatter
 
         #endregion
 
-        #region Methods
+        #region Methods: Event Handler
+
+        private void OnPropertyChanged(String propertyName)
+        {
+            var handler = PropertyChanged;
+
+            if (handler != null) {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         #endregion
     }
 }
