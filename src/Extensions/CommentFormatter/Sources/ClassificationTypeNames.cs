@@ -25,13 +25,13 @@ using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    static class ClassificationTypeNames
+    internal static class ClassificationTypeNames
     {
         #region Constants
 
-        public const String CommentBlock = "comment - block";
+        public const String MultiLineComment = "comment - multiline";
 
         #endregion
     }

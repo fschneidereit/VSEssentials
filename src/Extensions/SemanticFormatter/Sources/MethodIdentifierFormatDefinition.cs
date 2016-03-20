@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,29 +21,28 @@
 
 #region Using Directives
 
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
+using System;
 using System.ComponentModel.Composition;
 using System.Windows.Media;
+using Microsoft.VisualStudio.Text.Classification;
+using Microsoft.VisualStudio.Utilities;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.SemanticFormatter
 {
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.CommentBlock)]
-    [Name(ClassificationTypeNames.CommentBlock)]
-    [Order(After = Priority.Default)]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.MethodIdentifier)]
+    [Name(ClassificationTypeNames.MethodIdentifier)]
+    [Order(After = Priority.High)]
     [UserVisible(true)]
-    sealed class CommentBlockFormatDefinition : ClassificationFormatDefinition
+    internal sealed class MethodIdentifierFormatDefinition : ClassificationFormatDefinition
     {
         #region Constructors
 
-        public CommentBlockFormatDefinition()
+        public MethodIdentifierFormatDefinition()
         {
-            // By default, comment blocks are green and boldface
-            DisplayName = (new LocalLocalizationProvider()).GetString(LocalLocalizationResourceNames.CommentBlockFormatDefinitionDisplayName);
-            ForegroundColor = Colors.Green;
+            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.MethodIdentifierFormatDefinitionDisplayName);
             IsBold = true;
         }
 

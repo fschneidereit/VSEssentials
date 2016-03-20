@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     public class CommentFormatterOptionPage : DialogPage
     {

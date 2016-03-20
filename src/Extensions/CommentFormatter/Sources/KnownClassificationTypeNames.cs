@@ -26,7 +26,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     static class KnownClassificationTypeNames
     {
@@ -50,7 +50,7 @@ namespace VSEssentials.Extensions.CommentFormatter
 
         static readonly IList<String> comments = new List<String> {
             Comment,
-            ClassificationTypeNames.CommentBlock // Know type within the comment formatter
+            ClassificationTypeNames.MultiLineComment // Know type within the comment formatter
         };
 
         static readonly IList<String> documentationComments = new List<String> {

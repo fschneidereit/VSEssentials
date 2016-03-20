@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -25,19 +25,19 @@ using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    static class LocalLocalizationResourceNames
+    internal static class LocalLocalizationResourceNames
     {
         #region Constants
 
-        public const String CommentBlockFormatDefinitionDisplayName = "CommentBlockFormatDefinitionDisplayName";
-        public const String FadeDocumentationTagsDescription = "FadeDocumentationTagsDescription";
-        public const String FadeDocumentationTagsDisplayName = "FadeDocumentationTagsDisplayName";
-        public const String ItalicizeCommentsDescription = "ItalicizeCommentsDescription";
-        public const String ItalicizeCommentsDisplayName = "ItalicizeCommentsDisplayName";
-        public const String ItalicizeDocumentationCommentsDescription = "ItalicizeDocumentationCommentsDescription";
-        public const String ItalicizeDocumentationCommentsDisplayName = "ItalicizeDocumentationCommentsDisplayName";
+        public const String FadeDocumentationTagsDescription = nameof(FadeDocumentationTagsDescription);
+        public const String FadeDocumentationTagsDisplayName = nameof(FadeDocumentationTagsDisplayName);
+        public const String ItalicizeCommentsDescription = nameof(ItalicizeCommentsDescription);
+        public const String ItalicizeCommentsDisplayName = nameof(ItalicizeCommentsDisplayName);
+        public const String ItalicizeDocumentationCommentsDescription = nameof(ItalicizeDocumentationCommentsDescription);
+        public const String ItalicizeDocumentationCommentsDisplayName = nameof(ItalicizeDocumentationCommentsDisplayName);
+        public const String MultiLineCommentFormatDefinitionDisplayName = nameof(MultiLineCommentFormatDefinitionDisplayName);
 
         #endregion
     }

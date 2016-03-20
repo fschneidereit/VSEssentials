@@ -26,12 +26,14 @@ using Microsoft.VisualStudio.Text.Editor;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Threading;
+using System.Text;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
-    sealed class DocumentInsightsMargin : IWpfTextViewMargin
+    internal sealed class DocumentInsightsMargin : IWpfTextViewMargin
     {
         #region Constants
 
@@ -41,11 +43,11 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         #region Fields
 
-        readonly ITextDocument textDocument;
-        readonly IWpfTextView textView;
-        readonly DocumentInsightsView view;
-        readonly DocumentInsightsViewModel viewModel;
-        Boolean disposed;
+        private readonly ITextDocument _textDocument;
+        private readonly IWpfTextView _textView;
+        private readonly DocumentInsightsView _view;
+        private readonly DocumentInsightsViewModel _viewModel;
+        private Boolean _disposed;
 
         #endregion
 
@@ -57,20 +59,24 @@ namespace VSEssentials.Extensions.DocumentInsights
             Int32 sourceCharCount = 0;
 
             // Instance initialization
-            this.textView = textView;
+            _textView = textView;
 
-            if (documentService.TryGetTextDocument(textView.TextBuffer, out textDocument)) {
-                sourceLineCount = textDocument.TextBuffer.CurrentSnapshot.LineCount;
-                sourceCharCount = textDocument.TextBuffer.CurrentSnapshot.Length;
+            if (documentService.TryGetTextDocument(textView.TextBuffer, out _textDocument)) {
+                sourceLineCount = _textDocument.TextBuffer.CurrentSnapshot.LineCount;
+                sourceCharCount = _textDocument.TextBuffer.CurrentSnapshot.Length;
+                _textDocument.FileActionOccurred += TextDocument_FileActionOccurred;
             }
 
-            viewModel = new DocumentInsightsViewModel(sourceLineCount, sourceCharCount) {
+            Encoding encoding = _textDocument != null ? _textDocument.Encoding : null;
+
+            _viewModel = new DocumentInsightsViewModel(sourceLineCount, sourceCharCount, encoding) {
                 ShowCharInfo = DocumentInsightsOptions.Current.EnableCharInfo,
-                ShowLineInfo = DocumentInsightsOptions.Current.EnableLineInfo
+                ShowLineInfo = DocumentInsightsOptions.Current.EnableLineInfo,
+                ShowEncodingInfo = DocumentInsightsOptions.Current.EnableEncodingInfo
             };
 
-            view = new DocumentInsightsView() {
-                DataContext = viewModel,
+            _view = new DocumentInsightsView() {
+                DataContext = _viewModel,
                 Visibility = DocumentInsightsOptions.Current.ShowMargin ? Visibility.Visible : Visibility.Collapsed
             };
 
@@ -92,30 +98,28 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         public Boolean Enabled {
             get {
-                if (disposed) {
+                if (_disposed) {
                     throw new ObjectDisposedException(MarginName);
                 }
-
                 return true;
             }
         }
 
         public Double MarginSize {
             get {
-                if (disposed) {
+                if (_disposed) {
                     throw new ObjectDisposedException(MarginName);
                 }
-                return view.ActualHeight;
+                return _view.ActualHeight;
             }
         }
 
         public FrameworkElement VisualElement {
             get {
-                if (disposed) {
+                if (_disposed) {
                     throw new ObjectDisposedException(MarginName);
                 }
-
-                return view;
+                return _view;
             }
         }
 
@@ -125,19 +129,23 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         public void Dispose()
         {
-            if (!disposed) {
-                disposed = true;
+            if (!_disposed) {
+                _disposed = true;
                 GC.SuppressFinalize(this);
 
                 // Unsubscribe options property changed notifications
                 DocumentInsightsOptions.Current.PropertyChanged -= Options_PropertyChanged;
 
                 // Remove event handlers
-                if (textView != null) {
-                    if (textView.TextBuffer != null) {
-                        textView.TextBuffer.Changed -= TextBuffer_Changed;
+                if (_textDocument != null) {
+                    _textDocument.FileActionOccurred -= TextDocument_FileActionOccurred;
+                }
+
+                if (_textView != null) {
+                    if (_textView.TextBuffer != null) {
+                        _textView.TextBuffer.Changed -= TextBuffer_Changed;
                     }
-                    textView.Closed -= TextView_Closed;
+                    _textView.Closed -= TextView_Closed;
                 }
             }
         }
@@ -151,39 +159,51 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         #region Methods: Event Handler
 
-        void Options_PropertyChanged(Object sender, PropertyChangedEventArgs e)
+        private void Options_PropertyChanged(Object sender, PropertyChangedEventArgs e)
         {
             DocumentInsightsOptions current = DocumentInsightsOptions.Current;
 
             switch (e.PropertyName) {
                 case nameof(DocumentInsightsOptions.ShowMargin):
-                    view.Visibility = current.ShowMargin ? Visibility.Visible : Visibility.Collapsed;
+                    _view.Visibility = current.ShowMargin ? Visibility.Visible : Visibility.Collapsed;
                     break;
                 case nameof(DocumentInsightsOptions.EnableLineInfo):
-                    viewModel.ShowLineInfo = current.EnableLineInfo;
+                    _viewModel.ShowLineInfo = current.EnableLineInfo;
                     break;
                 case nameof(DocumentInsightsOptions.EnableCharInfo):
-                    viewModel.ShowCharInfo = current.EnableCharInfo;
+                    _viewModel.ShowCharInfo = current.EnableCharInfo;
+                    break;
+                case nameof(DocumentInsightsOptions.EnableEncodingInfo):
+                    _viewModel.ShowEncodingInfo = current.EnableEncodingInfo;
                     break;
             }
         }
 
-        void TextBuffer_Changed(Object sender, TextContentChangedEventArgs e)
+        private void TextBuffer_Changed(Object sender, TextContentChangedEventArgs e)
         {
             ITextBuffer textBuffer = sender as ITextBuffer;
 
             if (textBuffer != null) {
-                viewModel.ActualLineCount = textBuffer.CurrentSnapshot.LineCount;
-                viewModel.ActualCharCount = textBuffer.CurrentSnapshot.Length;
+                _viewModel.ActualLineCount = textBuffer.CurrentSnapshot.LineCount;
+                _viewModel.ActualCharCount = textBuffer.CurrentSnapshot.Length;
             }
         }
 
+        private void TextDocument_FileActionOccurred(Object sender, TextDocumentFileActionEventArgs e)
+        {
+            ITextDocument textDocument = sender as ITextDocument;
 
-        void TextView_Closed(Object sender, EventArgs e)
+            if (textDocument != null) {
+                if (_viewModel != null) {
+                    _viewModel.Encoding = textDocument.Encoding;
+                }
+            }
+        }
+
+        private void TextView_Closed(Object sender, EventArgs e)
         {
             Dispose();
         }
-
 
         #endregion
     }

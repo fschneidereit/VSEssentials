@@ -26,15 +26,15 @@ using System.ComponentModel;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
-    sealed class DocumentInsightsOptions : INotifyPropertyChanged
+    internal sealed class DocumentInsightsOptions : INotifyPropertyChanged
     {
         #region Singleton Class
 
-        static class Singleton
+        private sealed class Singleton
         {
-            internal static readonly DocumentInsightsOptions Instance = new DocumentInsightsOptions();
+            public static readonly DocumentInsightsOptions Instance = new DocumentInsightsOptions();
             static Singleton() { }
         }
 
@@ -42,9 +42,10 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         #region Fields
 
-        Boolean enableCharInfo;
-        Boolean enableLineInfo;
-        Boolean showMargin;
+        Boolean _enableCharInfo;
+        Boolean _enableLineInfo;
+        Boolean _enableEncodingInfo;
+        Boolean _showMargin;
 
         #endregion
 
@@ -53,9 +54,10 @@ namespace VSEssentials.Extensions.DocumentInsights
         DocumentInsightsOptions()
         {
             // Default instance initialization
-            enableCharInfo = true;
-            enableLineInfo = true;
-            showMargin = true;
+            _enableCharInfo = true;
+            _enableLineInfo = true;
+            _enableEncodingInfo = true;
+            _showMargin = true;
         }
 
         #endregion
@@ -69,30 +71,40 @@ namespace VSEssentials.Extensions.DocumentInsights
         #region Properties
 
         public Boolean EnableCharInfo {
-            get { return enableCharInfo; }
+            get { return _enableCharInfo; }
             set {
-                if (enableCharInfo != value) {
-                    enableCharInfo = value;
+                if (_enableCharInfo != value) {
+                    _enableCharInfo = value;
                     OnPropertyChanged(nameof(EnableCharInfo));
                 }
             }
         }
 
-        public Boolean EnableLineInfo {
-            get { return enableLineInfo; }
+        public Boolean EnableEncodingInfo {
+            get { return _enableEncodingInfo; }
             set {
-                if (enableLineInfo != value) {
-                    enableLineInfo = value;
+                if (_enableEncodingInfo != value) {
+                    _enableEncodingInfo = value;
+                    OnPropertyChanged(nameof(EnableEncodingInfo));
+                }
+            }
+        }
+
+        public Boolean EnableLineInfo {
+            get { return _enableLineInfo; }
+            set {
+                if (_enableLineInfo != value) {
+                    _enableLineInfo = value;
                     OnPropertyChanged(nameof(EnableLineInfo));
                 }
             }
         }
 
         public Boolean ShowMargin {
-            get { return showMargin; }
+            get { return _showMargin; }
             set {
-                if (showMargin != value) {
-                    showMargin = value;
+                if (_showMargin != value) {
+                    _showMargin = value;
                     OnPropertyChanged(nameof(ShowMargin));
                 }
             }
@@ -108,12 +120,9 @@ namespace VSEssentials.Extensions.DocumentInsights
 
         #endregion
 
-        #region Methods
-        #endregion
-
         #region Methods: Event Handler
 
-        void OnPropertyChanged(String propertyName)
+        private void OnPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
 

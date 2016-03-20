@@ -21,56 +21,40 @@
 
 #region Using Directives
 
+using System;
+using System.ComponentModel.Composition;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
-using System;
-using System.Collections.Generic;
+using Microsoft.VisualStudio.Text.Tagging;
+using Microsoft.VisualStudio.Utilities;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    sealed class CommentBlockClassifier : IClassifier
+    [Export(typeof(ITaggerProvider))]
+    [ContentType(ContentTypes.CSharp)]
+    [TagType(typeof(IClassificationTag))]
+    internal sealed class MultiLineCommentTaggerProvider : ITaggerProvider
     {
         #region Fields
-        #endregion
 
-        #region Constructors
-
-        public CommentBlockClassifier()
-        {
-        }
-
-        #endregion
-
-        #region Events
-
-        public event EventHandler<ClassificationChangedEventArgs> ClassificationChanged;
+#pragma warning disable CS0649
+        [Import]
+        private IClassificationTypeRegistryService _classificationTypeRegistry;
+        [Import]
+        private VisualStudioWorkspace _workspace;
+#pragma warning restore CS0649
 
         #endregion
 
         #region Methods
 
-        public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
+        public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
-            if (span.IsEmpty) {
-                return Empty.List<ClassificationSpan>();
-            }
-
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Methods: Event Handler
-
-        void OnClassificationChanged(ClassificationChangedEventArgs e)
-        {
-            EventHandler<ClassificationChangedEventArgs> eh = ClassificationChanged;
-
-            if (eh != null) {
-                eh(this, e);
-            }
+            return (ITagger<T>)buffer.Properties.GetOrCreateSingletonProperty(
+                () => new MultiLineCommentTagger(_workspace, _classificationTypeRegistry));
         }
 
         #endregion

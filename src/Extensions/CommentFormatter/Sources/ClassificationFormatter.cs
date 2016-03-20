@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     static class ClassificationFormatter
     {

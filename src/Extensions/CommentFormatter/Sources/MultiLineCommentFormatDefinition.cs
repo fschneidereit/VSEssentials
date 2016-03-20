@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2016 Florian Schneidereit
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,6 +21,7 @@
 
 #region Using Directives
 
+using System;
 using System.ComponentModel.Composition;
 using System.Windows.Media;
 using Microsoft.VisualStudio.Text.Classification;
@@ -28,21 +29,21 @@ using Microsoft.VisualStudio.Utilities;
 
 #endregion
 
-namespace VSEssentials.SemanticFormatter
+namespace VSEssentials.CommentFormatter
 {
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.FieldIdentifier)]
-    [Name(ClassificationTypeNames.FieldIdentifier)]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.MultiLineComment)]
+    [Name(ClassificationTypeNames.MultiLineComment)]
     [Order(After = Priority.High, Before = Priority.Default)]
     [UserVisible(true)]
-    internal sealed class FieldIdentifierFormatDefinition : ClassificationFormatDefinition
+    internal sealed class MultiLineCommentFormatDefinition : ClassificationFormatDefinition
     {
         #region Constructors
 
-        public FieldIdentifierFormatDefinition()
+        public MultiLineCommentFormatDefinition()
         {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.FieldIdentifierFormatDefinitionDisplayName);
-            IsItalic = true;
+            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.MultiLineCommentFormatDefinitionDisplayName);
+            IsBold = true;
         }
 
         #endregion

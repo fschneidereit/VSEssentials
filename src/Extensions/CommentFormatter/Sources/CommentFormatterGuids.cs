@@ -25,7 +25,7 @@ using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     static class CommentFormatterGuids
     {

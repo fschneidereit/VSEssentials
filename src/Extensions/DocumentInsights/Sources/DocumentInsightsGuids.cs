@@ -25,7 +25,7 @@ using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
     static class DocumentInsightsGuids
     {

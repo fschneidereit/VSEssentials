@@ -43,7 +43,7 @@ namespace VSEssentials.SemanticFormatter
 
         #region Constructors
 
-        public LocalLocalizationProvider() : base(Assembly.GetExecutingAssembly())
+        private LocalLocalizationProvider() : base(Assembly.GetExecutingAssembly())
         {
         }
 

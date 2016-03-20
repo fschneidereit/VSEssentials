@@ -25,21 +25,27 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    static class Empty
+    internal static class Empty
     {
         #region Singleton Class
 
-        static class Instance<T>
+        private sealed class Instance<T>
         {
-            internal static readonly IList<T> List = new List<T>().AsReadOnly();
+            public static readonly T[] Array = new T[0];
+            public static readonly IList<T> List = new List<T>().AsReadOnly();
             static Instance() { }
         }
 
         #endregion
 
         #region Methods
+
+        public static T[] Array<T>()
+        {
+            return Instance<T>.Array;
+        }
 
         public static IList<T> List<T>()
         {

@@ -27,17 +27,17 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [ProvideOptionPage(typeof(CommentFormatterOptionPage), "VSEssentials", "Comment Formatter", 120, 110, false)]
     [Guid(CommentFormatterGuids.Package)]
-    sealed class CommentFormatterPackage : Package
+    internal sealed class CommentFormatterPackage : Package
     {
         #region Constants
 
-        internal const String ProductVersion = "1.0.0";
+        internal const String ProductVersion = "1.1.0";
 
         #endregion
 

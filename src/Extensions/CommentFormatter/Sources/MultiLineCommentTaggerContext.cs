@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2016 Florian Schneidereit
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -30,12 +30,12 @@ using Microsoft.VisualStudio.Text;
 
 #endregion
 
-namespace VSEssentials.SemanticFormatter
+namespace VSEssentials.CommentFormatter
 {
     [StructLayout(LayoutKind.Auto)]
-    internal struct SemanticFormatterContext
+    internal struct MultiLineCommentTaggerContext
     {
-        public static readonly SemanticFormatterContext Empty = new SemanticFormatterContext();
+        public static readonly MultiLineCommentTaggerContext Empty;
 
         #region Fields
 
@@ -48,12 +48,13 @@ namespace VSEssentials.SemanticFormatter
 
         #region Constructors
 
-        internal SemanticFormatterContext(
+        public MultiLineCommentTaggerContext(
             Document document = null,
             SemanticModel semanticModel = null,
             SyntaxNode syntaxRoot = null,
             ITextSnapshot snapshot = null)
         {
+            // Instance initialization
             _document = document;
             _semanticModel = semanticModel;
             _syntaxRoot = syntaxRoot;
@@ -69,7 +70,7 @@ namespace VSEssentials.SemanticFormatter
         }
 
         public Boolean IsEmpty {
-            get { return Document == null && SemanticModel == null && SyntaxRoot == null & Snapshot == null; }
+            get { return Document == null && SemanticModel == null && SyntaxRoot == null && Snapshot == null; }
         }
 
         public SemanticModel SemanticModel {
@@ -88,13 +89,13 @@ namespace VSEssentials.SemanticFormatter
 
         #region Methods: Static
 
-        public static async Task<SemanticFormatterContext> CreateAsync(ITextSnapshot snapshot)
+        public static async Task<MultiLineCommentTaggerContext> CreateAsync(ITextSnapshot snapshot)
         {
             var document = snapshot.GetOpenDocumentInCurrentContextWithChanges();
-            var semanticModel = await document.GetSemanticModelAsync().ConfigureAwait(false);
-            var syntaxRoot = await document.GetSyntaxRootAsync().ConfigureAwait(false);
+            var semanticModel = await document.GetSemanticModelAsync();
+            var syntaxRoot = await document.GetSyntaxRootAsync();
 
-            return new SemanticFormatterContext(document, semanticModel, syntaxRoot, snapshot);
+            return new MultiLineCommentTaggerContext(document, semanticModel, syntaxRoot, snapshot);
         }
 
         #endregion

@@ -23,37 +23,40 @@
 
 using System;
 using System.ComponentModel;
+using System.Text;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
-    sealed class DocumentInsightsViewModel : INotifyPropertyChanged
+    internal sealed class DocumentInsightsViewModel : INotifyPropertyChanged
     {
         #region Fields
 
-        readonly LocalLocalizationProvider localizationProvider;
-        readonly Int32 sourceCharCount;
-        readonly Int32 sourceLineCount;
-        Int32 actualCharCount;
-        Int32 actualLineCount;
-        Boolean showCharInfo;
-        Boolean showLineInfo;
+        private readonly Int32 _sourceCharCount;
+        private readonly Int32 _sourceLineCount;
+        private Int32 _actualCharCount;
+        private Int32 _actualLineCount;
+        private Encoding _encoding;
+        private Boolean _showCharInfo;
+        private Boolean _showLineInfo;
+        private Boolean _showEncoding;
 
         #endregion
 
         #region Constructors
 
-        public DocumentInsightsViewModel(Int32 lineCount = 0, Int32 charCount = 0)
+        public DocumentInsightsViewModel(Int32 lineCount = 0, Int32 charCount = 0, Encoding encoding = null)
         {
             // Instance initialization
-            localizationProvider = new LocalLocalizationProvider();
-            actualLineCount = sourceLineCount = lineCount;
-            actualCharCount = sourceCharCount = charCount;
+            _actualLineCount = _sourceLineCount = lineCount;
+            _actualCharCount = _sourceCharCount = charCount;
+            _encoding = encoding;
 
             // Initialize defaults
-            showCharInfo = true;
-            showLineInfo = true;
+            _showCharInfo = true;
+            _showLineInfo = true;
+            _showEncoding = true;
         }
 
         #endregion
@@ -67,10 +70,10 @@ namespace VSEssentials.Extensions.DocumentInsights
         #region Properties
 
         public Int32 ActualCharCount {
-            get { return actualCharCount; }
+            get { return _actualCharCount; }
             set {
-                if (actualCharCount != value) {
-                    actualCharCount = value;
+                if (_actualCharCount != value) {
+                    _actualCharCount = value;
                     OnPropertyChanged(nameof(ActualCharCount));
                     OnPropertyChanged(nameof(CharDifference));
                 }
@@ -78,14 +81,14 @@ namespace VSEssentials.Extensions.DocumentInsights
         }
 
         public String ActualCharCountLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.ActualCharCountLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.ActualCharCountLabel); }
         }
 
         public Int32 ActualLineCount {
-            get { return actualLineCount; }
+            get { return _actualLineCount; }
             set {
-                if (actualLineCount != value) {
-                    actualLineCount = value;
+                if (_actualLineCount != value) {
+                    _actualLineCount = value;
                     OnPropertyChanged(nameof(ActualLineCount));
                     OnPropertyChanged(nameof(LineDifference));
                 }
@@ -93,7 +96,7 @@ namespace VSEssentials.Extensions.DocumentInsights
         }
 
         public String ActualLineCountLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.ActualLineCountLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.ActualLineCountLabel); }
         }
 
         public Int32 CharDifference {
@@ -101,11 +104,25 @@ namespace VSEssentials.Extensions.DocumentInsights
         }
 
         public String CharInfoLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.CharInfoLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.CharInfoLabel); }
         }
 
         public String DifferenceLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.DifferenceLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.DifferenceLabel); }
+        }
+
+        public Encoding Encoding {
+            get { return _encoding; }
+            set {
+                if (_encoding != value) {
+                    _encoding = value;
+                    OnPropertyChanged(nameof(Encoding));
+                }
+            }
+        }
+
+        public String EncodingInfoLabel {
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.EncodingInfoLabel); }
         }
 
         public Int32 LineDifference {
@@ -113,50 +130,60 @@ namespace VSEssentials.Extensions.DocumentInsights
         }
 
         public String LineInfoLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.LineInfoLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.LineInfoLabel); }
         }
 
         public Boolean ShowCharInfo {
-            get { return showCharInfo; }
+            get { return _showCharInfo; }
             set {
-                if (showCharInfo != value) {
-                    showCharInfo = value;
+                if (_showCharInfo != value) {
+                    _showCharInfo = value;
                     OnPropertyChanged(nameof(ShowCharInfo));
                 }
             }
         }
 
-        public Boolean ShowLineInfo {
-            get { return showLineInfo; }
+        public Boolean ShowEncodingInfo {
+            get { return _showEncoding; }
             set {
-                if (showLineInfo != value) {
-                    showLineInfo = value;
+                if (_showEncoding != value) {
+                    _showEncoding = value;
+                    OnPropertyChanged(nameof(ShowEncodingInfo));
+                }
+            }
+        }
+
+        public Boolean ShowLineInfo {
+            get { return _showLineInfo; }
+            set {
+                if (_showLineInfo != value) {
+                    _showLineInfo = value;
                     OnPropertyChanged(nameof(ShowLineInfo));
                 }
             }
         }
 
         public Int32 SourceCharCount {
-            get { return sourceCharCount; }
+            get { return _sourceCharCount; }
         }
 
         public String SourceCharCountLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.SourceCharCountLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.SourceCharCountLabel); }
         }
 
         public Int32 SourceLineCount {
-            get { return sourceLineCount; }
+            get { return _sourceLineCount; }
         }
 
         public String SourceLineCountLabel {
-            get { return localizationProvider.GetString(LocalLocalizationResourceNames.SourceLineCountLabel); }
+            get { return LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.SourceLineCountLabel); }
         }
 
         #endregion
 
         #region Methods: Event Handler
 
-        void OnPropertyChanged(String propertyName)
+        private void OnPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
 

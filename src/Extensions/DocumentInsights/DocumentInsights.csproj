@@ -23,7 +23,7 @@
     <ProjectGuid>{9B35A908-6979-45DE-A1A0-DCC1AF9DC431}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VSEssentials.Extensions.DocumentInsights</RootNamespace>
+    <RootNamespace>VSEssentials.DocumentInsights</RootNamespace>
     <AssemblyName>DocumentInsights</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
@@ -50,6 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Sources\DocumentInsightsGuids.cs" />
+    <Compile Include="Sources\EncodingToStringConverter.cs" />
     <Compile Include="Sources\LocalLocalizationProvider.cs" />
     <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
     <Compile Include="Sources\DocumentInsightsOptionPage.cs">

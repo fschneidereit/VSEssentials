@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommentBlockFormatDefinitionDisplayName" xml:space="preserve">
-    <value>Comment (Block)</value>
-  </data>
   <data name="FadeDocumentationTagsDescription" xml:space="preserve">
     <value>Specifies whether documentation tags are faded out.</value>
   </data>
@@ -137,5 +134,8 @@
   </data>
   <data name="ItalicizeDocumentationCommentsDisplayName" xml:space="preserve">
     <value>Italicize documentation comments</value>
+  </data>
+  <data name="MultiLineCommentFormatDefinitionDisplayName" xml:space="preserve">
+    <value>Comment - Multiline</value>
   </data>
 </root>

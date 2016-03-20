@@ -62,6 +62,7 @@
     <Compile Include="Sources\KnownClassificationTypeNames.cs" />
     <Compile Include="Sources\LocalLocalizationProvider.cs" />
     <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
+    <Compile Include="Sources\MethodIdentifierFormatDefinition.cs" />
     <Compile Include="Sources\SemanticFormatter.cs" />
     <Compile Include="Sources\SemanticFormatterContext.cs" />
     <Compile Include="Sources\SemanticFormatterGuids.cs" />
@@ -284,6 +285,10 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\PreviewImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

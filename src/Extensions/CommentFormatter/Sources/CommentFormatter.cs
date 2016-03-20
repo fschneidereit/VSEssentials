@@ -28,16 +28,16 @@ using System.ComponentModel;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    sealed class CommentFormatter
+    internal sealed class CommentFormatter
     {
         #region Fields
 
-        readonly IClassificationFormatMap formatMap;
-        readonly IWpfTextView textView;
-        readonly IClassificationTypeRegistryService typeRegistryService;
-        Boolean formatting;
+        private Boolean _formatting;
+        private readonly IClassificationFormatMap _formatMap;
+        private readonly IWpfTextView _textView;
+        private readonly IClassificationTypeRegistryService _typeRegistry;
 
         #endregion
 
@@ -46,9 +46,9 @@ namespace VSEssentials.Extensions.CommentFormatter
         internal CommentFormatter(IClassificationFormatMap formatMap, IWpfTextView textView, IClassificationTypeRegistryService typeRegistryService)
         {
             // Initialize instance fields
-            this.formatMap = formatMap;
-            this.textView = textView;
-            this.typeRegistryService = typeRegistryService;
+            _formatMap = formatMap;
+            _textView = textView;
+            _typeRegistry = typeRegistryService;
 
             // Initial formatting
             InvalidateFormatting();
@@ -69,20 +69,20 @@ namespace VSEssentials.Extensions.CommentFormatter
         }
 
         IClassificationFormatMap FormatMap {
-            get { return formatMap; }
+            get { return _formatMap; }
         }
 
         Boolean IsFormatting {
-            get { return formatting; }
-            set { formatting = value; }
+            get { return _formatting; }
+            set { _formatting = value; }
         }
 
         IWpfTextView TextView {
-            get { return textView; }
+            get { return _textView; }
         }
 
         IClassificationTypeRegistryService TypeRegistryService {
-            get { return typeRegistryService; }
+            get { return _typeRegistry; }
         }
 
         #endregion
@@ -218,13 +218,13 @@ namespace VSEssentials.Extensions.CommentFormatter
 
         #region Methods: Event Handler
 
-        void FormatMap_ClassificationFormatMappingChanged(Object sender, EventArgs e)
+        private void FormatMap_ClassificationFormatMappingChanged(Object sender, EventArgs e)
         {
             // Invalidate formatting on classification map change
             InvalidateFormatting();
         }
 
-        void Options_PropertyChanged(Object sender, PropertyChangedEventArgs e)
+        private void Options_PropertyChanged(Object sender, PropertyChangedEventArgs e)
         {
             // Validate event arguments
             if (e == null) {
@@ -249,7 +249,7 @@ namespace VSEssentials.Extensions.CommentFormatter
             }
         }
 
-        void TextView_Closed(Object sender, EventArgs e)
+        private void TextView_Closed(Object sender, EventArgs e)
         {
             if (TextView != null) {
                 TextView.Closed -= TextView_Closed;
@@ -263,7 +263,7 @@ namespace VSEssentials.Extensions.CommentFormatter
             CommentFormatterOptions.Current.PropertyChanged -= Options_PropertyChanged;
         }
 
-        void TextView_GotAggregateFocus(Object sender, EventArgs e)
+        private void TextView_GotAggregateFocus(Object sender, EventArgs e)
         {
             if (TextView != null) {
                 TextView.GotAggregateFocus -= TextView_GotAggregateFocus;

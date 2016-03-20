@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -25,25 +25,28 @@ using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
-    static class LocalLocalizationResourceNames
+    internal static class LocalLocalizationResourceNames
     {
         #region Constants
 
-        public const String ActualCharCountLabel = "ActualCharCountLabel";
-        public const String ActualLineCountLabel = "ActualLineCountLabel";
-        public const String EnableCharInfoDescription = "EnableCharInfoDescription";
-        public const String EnableCharInfoDisplayName = "EnableCharInfoDisplayName";
-        public const String EnableLineInfoDescription = "EnableLineInfoDescription";
-        public const String EnableLineInfoDisplayName = "EnableLineInfoDisplayName";
-        public const String CharInfoLabel = "CharInfoLabel";
-        public const String DifferenceLabel = "DifferenceLabel";
-        public const String LineInfoLabel = "LineInfoLabel";
-        public const String ShowMarginDescription = "ShowMarginDescription";
-        public const String ShowMarginDisplayName = "ShowMarginDisplayName";
-        public const String SourceCharCountLabel = "SourceCharCountLabel";
-        public const String SourceLineCountLabel = "SourceLineCountLabel";
+        public const String ActualCharCountLabel = nameof(ActualCharCountLabel);
+        public const String ActualLineCountLabel = nameof(ActualLineCountLabel);
+        public const String CharInfoLabel = nameof(CharInfoLabel);
+        public const String DifferenceLabel = nameof(DifferenceLabel);
+        public const String EnableCharInfoDescription = nameof(EnableCharInfoDescription);
+        public const String EnableCharInfoDisplayName = nameof(EnableCharInfoDisplayName);
+        public const String EnableEncodingInfoDescription = nameof(EnableEncodingInfoDescription);
+        public const String EnableEncodingInfoDisplayName = nameof(EnableEncodingInfoDisplayName);
+        public const String EnableLineInfoDescription = nameof(EnableLineInfoDescription);
+        public const String EnableLineInfoDisplayName = nameof(EnableLineInfoDisplayName);
+        public const String EncodingInfoLabel = nameof(EncodingInfoLabel);
+        public const String LineInfoLabel = nameof(LineInfoLabel);
+        public const String ShowMarginDescription = nameof(ShowMarginDescription);
+        public const String ShowMarginDisplayName = nameof(ShowMarginDisplayName);
+        public const String SourceCharCountLabel = nameof(SourceCharCountLabel);
+        public const String SourceLineCountLabel = nameof(SourceLineCountLabel);
 
         #endregion
     }

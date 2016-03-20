@@ -29,7 +29,7 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
     [Export(typeof(IWpfTextViewMarginProvider))]
     [Name(DocumentInsightsMargin.MarginName)]

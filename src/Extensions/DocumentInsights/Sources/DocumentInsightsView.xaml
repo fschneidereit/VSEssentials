@@ -18,18 +18,19 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 =================================================================================================-->
-<UserControl x:Class="VSEssentials.Extensions.DocumentInsights.DocumentInsightsView"
+<UserControl x:Class="VSEssentials.DocumentInsights.DocumentInsightsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:VSEssentials.Extensions.DocumentInsights"
+             xmlns:local="clr-namespace:VSEssentials.DocumentInsights"
              xmlns:shell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
              Background="{DynamicResource {x:Static shell:VsBrushes.EditorExpansionFillKey}}"
              Foreground="{DynamicResource {x:Static shell:VsBrushes.EditorExpansionTextKey}}">
   <UserControl.Resources>
     <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+    <local:EncodingToStringConverter x:Key="EncodingConverter" />
   </UserControl.Resources>
   <StackPanel Orientation="Horizontal" Margin="4">
-    <StackPanel Orientation="Horizontal" Margin="0,0,10,0"  Visibility="{Binding ShowLineInfo, Converter={StaticResource VisibilityConverter}}">
+    <StackPanel Orientation="Horizontal" Margin="0,0,10,0" Visibility="{Binding ShowLineInfo, Converter={StaticResource VisibilityConverter}}">
       <StackPanel.ToolTip>
         <Grid>
           <Grid.ColumnDefinitions>
@@ -60,7 +61,7 @@
         </TextBlock.Text>
       </TextBlock>
     </StackPanel>
-    <StackPanel Orientation="Horizontal" Margin="0,0,10,0"  Visibility="{Binding ShowCharInfo, Converter={StaticResource VisibilityConverter}}">
+    <StackPanel Orientation="Horizontal" Margin="0,0,10,0" Visibility="{Binding ShowCharInfo, Converter={StaticResource VisibilityConverter}}">
       <StackPanel.ToolTip>
         <Grid>
           <Grid.ColumnDefinitions>
@@ -81,7 +82,7 @@
         </Grid>
       </StackPanel.ToolTip>
       <TextBlock VerticalAlignment="Center" Text="{Binding CharInfoLabel, Mode=OneWay}" FontWeight="Bold" />
-      <TextBlock VerticalAlignment="Center" MinWidth="80">
+      <TextBlock VerticalAlignment="Center" MinWidth="100">
         <TextBlock.Text>
           <MultiBinding StringFormat="{}{0} [{1}] ({2:+0;-0;0})">
             <Binding Path="ActualCharCount" />
@@ -90,6 +91,10 @@
           </MultiBinding>
         </TextBlock.Text>
       </TextBlock>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="0,0,10,0" Visibility="{Binding ShowEncoding, Converter={StaticResource VisibilityConverter}}">
+      <TextBlock VerticalAlignment="Center" Text="{Binding EncodingInfoLabel, Mode=OneWay}" FontWeight="Bold"/>
+      <TextBlock VerticalAlignment="Center" MinWidth="100" Text="{Binding Encoding, Converter={StaticResource EncodingConverter}, Mode=OneWay}" />
     </StackPanel>
   </StackPanel>
 </UserControl>

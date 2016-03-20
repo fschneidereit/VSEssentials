@@ -32,6 +32,7 @@ namespace VSEssentials.SemanticFormatter
         #region Constants
 
         public const String FieldIdentifier = "identifier - field";
+        public const String MethodIdentifier = "identifier - method";
 
         #endregion
     }

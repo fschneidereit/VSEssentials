@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="b6887952-a694-49d9-af83-c5f827b96e31" Version="1.0.0" Language="en-US" Publisher="Florian Schneidereit" />
-        <DisplayName>Semantic Formatter</DisplayName>
-        <Description xml:space="preserve">Provides semantic formatting for C# and Visual Basic source code.</Description>
-        <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
-        <License>en-US\License.txt</License>
-        <Icon>Resources\Icon.png</Icon>
-        <Tags>Editor Semantic Formatting</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Community" />
-        <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Pro" />
-        <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Enterprise" />
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.6,)" />
-        <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
-    </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="b6887952-a694-49d9-af83-c5f827b96e31" Version="1.0.0" Language="en-US" Publisher="Florian Schneidereit" />
+    <DisplayName>Semantic Formatter</DisplayName>
+    <Description xml:space="preserve">Provides semantic formatting for C# and Visual Basic source code.</Description>
+    <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
+    <License>en-US\License.txt</License>
+    <Icon>Resources\Icon.png</Icon>
+    <PreviewImage>Resources\PreviewImage.png</PreviewImage>
+    <Tags>Editor Semantic Formatting</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Community" />
+    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Pro" />
+    <InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.Enterprise" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.6,)" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.14.0" DisplayName="Visual Studio MPF 14.0" d:Source="Installed" Version="[14.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>

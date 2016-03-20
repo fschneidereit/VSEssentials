@@ -27,7 +27,7 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     sealed class CommentFormatterOptions : INotifyPropertyChanged
     {

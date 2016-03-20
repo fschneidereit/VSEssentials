@@ -21,36 +21,18 @@
 
 #region Using Directives
 
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
 using System;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    sealed class CommentBlockClassifierProvider : IClassifierProvider
+    internal static class ContentTypes
     {
-        #region Fields
-        #endregion
+        #region Constants
 
-        #region Constructors
-
-        public CommentBlockClassifierProvider()
-        {
-        }
-
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Methods
-
-        public IClassifier GetClassifier(ITextBuffer textBuffer)
-        {
-            throw new NotImplementedException();
-        }
+        public const String CSharp = nameof(CSharp);
+        public const String Basic = nameof(Basic);
 
         #endregion
     }

@@ -27,14 +27,16 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
-    static class ClassificationTypeDefinitions
+    internal static class ClassificationTypeDefinitions
     {
         #region Properties
 
-        [Export, Name(ClassificationTypeNames.CommentBlock)]
-        internal static ClassificationTypeDefinition BlockComment { get; set; }
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(ClassificationTypeNames.MultiLineComment)]
+        [BaseDefinition(KnownClassificationTypeNames.Comment)]
+        internal static ClassificationTypeDefinition MultiLineComment { get; set; }
 
         #endregion
     }

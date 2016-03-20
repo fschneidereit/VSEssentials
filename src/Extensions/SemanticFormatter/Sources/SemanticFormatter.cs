@@ -43,6 +43,7 @@ namespace VSEssentials.SemanticFormatter
 
         private SemanticFormatterContext _context;
         private readonly IClassificationType _fieldIdentifierType;
+        private readonly IClassificationType _methodIdentifierType;
         private readonly VisualStudioWorkspace _workspace;
 
         #endregion
@@ -54,6 +55,7 @@ namespace VSEssentials.SemanticFormatter
             // Initialize instance
             _context = SemanticFormatterContext.Empty;
             _fieldIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.FieldIdentifier);
+            _methodIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.MethodIdentifier);
             _workspace = workspace;
         }
 
@@ -67,23 +69,6 @@ namespace VSEssentials.SemanticFormatter
 
         #endregion
 
-        #region Properties
-
-        internal SemanticFormatterContext Context {
-            get { return _context; }
-            private set { _context = value; }
-        }
-
-        internal IClassificationType FieldIdentifierType {
-            get { return _fieldIdentifierType; }
-        }
-
-        internal VisualStudioWorkspace Workspace {
-            get { return _workspace; }
-        }
-
-        #endregion
-
         #region Methods
 
         public IEnumerable<ITagSpan<IClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
@@ -92,31 +77,43 @@ namespace VSEssentials.SemanticFormatter
                 return Empty.Array<ITagSpan<IClassificationTag>>();
             }
 
-            var snapshot = spans[0].Snapshot;
-
-            if (Context.IsEmpty || Context.TextSnapshot != snapshot) {
-                var task = SemanticFormatterContext.CreateAsync(snapshot);
-                task.Wait();
-                if (task.IsFaulted) {
-                    return Empty.Array<ITagSpan<IClassificationTag>>();
-                }
-                Context = task.Result;
-            }
-
-            var identifiers = GetIdentifiersInSnapshotSpans(spans);
             var tags = new List<ITagSpan<IClassificationTag>>();
 
-            foreach (var identifier in identifiers) {
-                var node = Context.SyntaxRoot.FindNode(identifier.TextSpan);
-                var symbol = GetSymbolFromNode(node);
+            foreach (var span in spans) {
+                var snapshot = span.Snapshot;
 
-                if (symbol == null) {
-                    continue;
+                if (_context.IsEmpty || _context.Snapshot != snapshot) {
+                    var task = SemanticFormatterContext.CreateAsync(snapshot);
+                    task.Wait();
+                    if (task.IsFaulted) {
+                        continue;
+                    }
+                    _context = task.Result;
                 }
 
-                if (symbol.Kind == SymbolKind.Field) {
-                    if (symbol.ContainingType.TypeKind != TypeKind.Enum) {
-                        tags.Add(CreateFieldIdentifierTag(snapshot, identifier.TextSpan));
+                var identifiers = GetIdentifiersInSnapshotSpan(span);
+                foreach (var identifier in identifiers) {
+                    var node = GetNodeFromTextSpan(identifier.TextSpan);
+                    var symbol = GetSymbolFromNode(node);
+
+                    if (symbol == null) {
+                        continue;
+                    }
+
+                    switch (symbol.Kind) {
+                        case SymbolKind.Field:
+                            if (symbol.ContainingType.TypeKind != TypeKind.Enum) {
+                                tags.Add(CreateFieldIdentifierTag(snapshot, identifier.TextSpan));
+                            }
+                            break;
+                        case SymbolKind.Method:
+                            var methodSymbol = symbol as IMethodSymbol;
+                            if (methodSymbol != null) {
+                                if (methodSymbol.MethodKind == MethodKind.Ordinary) {
+                                    tags.Add(CreateMethodIdentifierTag(snapshot, identifier.TextSpan));
+                                }
+                            }
+                            break;
                     }
                 }
             }
@@ -132,17 +129,21 @@ namespace VSEssentials.SemanticFormatter
         {
             return new TagSpan<IClassificationTag>(
                 new SnapshotSpan(snapshot, span.Start, span.Length),
-                new ClassificationTag(FieldIdentifierType));
+                new ClassificationTag(_fieldIdentifierType));
         }
 
-        private IEnumerable<ClassifiedSpan> GetIdentifiersInSnapshotSpans(NormalizedSnapshotSpanCollection spans)
+        private ITagSpan<IClassificationTag> CreateMethodIdentifierTag(ITextSnapshot snapshot, TextSpan span)
+        {
+            return new TagSpan<IClassificationTag>(
+                new SnapshotSpan(snapshot, span.Start, span.Length),
+                new ClassificationTag(_methodIdentifierType));
+        }
+
+        private IList<ClassifiedSpan> GetIdentifiersInSnapshotSpan(SnapshotSpan span)
         {
             // Get classified spans
-            var classifiedSpans = new List<ClassifiedSpan>();
-            foreach (var span in spans) {
-                var textSpan = TextSpan.FromBounds(span.Start, span.End);
-                classifiedSpans.AddRange(Classifier.GetClassifiedSpans(Context.SemanticModel, textSpan, Workspace));
-            }
+            var textSpan = TextSpan.FromBounds(span.Start, span.End);
+            var classifiedSpans = Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
 
             // Filter identifiers
             var identifierSpans = new List<ClassifiedSpan>();
@@ -157,23 +158,26 @@ namespace VSEssentials.SemanticFormatter
             return identifierSpans;
         }
 
+        private SyntaxNode GetNodeFromTextSpan(TextSpan span)
+        {
+            return _context.SyntaxRoot.FindNode(span);
+        }
+
         private ISymbol GetSymbolFromNode(SyntaxNode node)
         {
+            // CS/VB Argument Syntax
             if (node is CS.Syntax.ArgumentSyntax) {
                 var expression = ((CS.Syntax.ArgumentSyntax)node).Expression;
-                return Context.SemanticModel.GetSymbolInfo(expression).Symbol;
+                return _context.SemanticModel.GetSymbolInfo(expression).Symbol;
             }
 
             if (node is VB.Syntax.SimpleArgumentSyntax) {
                 var expression = ((VB.Syntax.SimpleArgumentSyntax)node).Expression;
-                return Context.SemanticModel.GetSymbolInfo(expression).Symbol;
+                return _context.SemanticModel.GetSymbolInfo(expression).Symbol;
             }
 
-            if ((node is CS.Syntax.VariableDeclaratorSyntax) || (node is VB.Syntax.VariableDeclaratorSyntax)) {
-                return Context.SemanticModel.GetDeclaredSymbol(node);
-            }
-
-            return Context.SemanticModel.GetSymbolInfo(node).Symbol;
+            var symbol = _context.SemanticModel.GetSymbolInfo(node).Symbol;
+            return symbol != null ? symbol : _context.SemanticModel.GetDeclaredSymbol(node);
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2016 Florian Schneidereit
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,28 +21,37 @@
 
 #region Using Directives
 
-using System.ComponentModel.Composition;
-using System.Windows.Media;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Utilities;
+using System;
+using System.Globalization;
+using System.Text;
+using System.Windows.Data;
 
 #endregion
 
-namespace VSEssentials.SemanticFormatter
+namespace VSEssentials.DocumentInsights
 {
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.FieldIdentifier)]
-    [Name(ClassificationTypeNames.FieldIdentifier)]
-    [Order(After = Priority.High, Before = Priority.Default)]
-    [UserVisible(true)]
-    internal sealed class FieldIdentifierFormatDefinition : ClassificationFormatDefinition
+    internal sealed class EncodingToStringConverter : IValueConverter
     {
-        #region Constructors
+        #region Methods
 
-        public FieldIdentifierFormatDefinition()
+        public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
         {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.FieldIdentifierFormatDefinitionDisplayName);
-            IsItalic = true;
+            Encoding encoding = value as Encoding;
+
+            if (encoding != null) {
+                if (targetType == typeof(String)) {
+                    Byte[] preambel = encoding.GetPreamble();
+                    String bom = preambel != null && preambel.Length > 2 ? " [BOM]" : String.Empty;
+                    return encoding.EncodingName + bom;
+                }
+            }
+
+            return null;
+        }
+
+        public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
         }
 
         #endregion

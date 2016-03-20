@@ -36,7 +36,13 @@ namespace VSEssentials.SemanticFormatter
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name(ClassificationTypeNames.FieldIdentifier)]
-        internal static ClassificationTypeDefinition FieldIdentifier { get; set; }
+        [BaseDefinition(KnownClassificationTypeNames.Identifier)]
+        public static ClassificationTypeDefinition FieldIdentifier { get; set; }
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name(ClassificationTypeNames.MethodIdentifier)]
+        [BaseDefinition(KnownClassificationTypeNames.Identifier)]
+        public static ClassificationTypeDefinition MethodIdentifier { get; set; }
 
         #endregion
     }

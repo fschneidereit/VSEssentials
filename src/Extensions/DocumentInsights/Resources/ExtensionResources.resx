@@ -135,11 +135,20 @@
   <data name="EnableCharInfoDisplayName" xml:space="preserve">
     <value>Enable character information</value>
   </data>
+  <data name="EnableEncodingInfoDescription" xml:space="preserve">
+    <value>Specifies whether encoding information is displayed.</value>
+  </data>
+  <data name="EnableEncodingInfoDisplayName" xml:space="preserve">
+    <value>Enable encoding information</value>
+  </data>
   <data name="EnableLineInfoDescription" xml:space="preserve">
     <value>Specifies whether detailed line information is displayed.</value>
   </data>
   <data name="EnableLineInfoDisplayName" xml:space="preserve">
     <value>Enable line information</value>
+  </data>
+  <data name="EncodingInfoLabel" xml:space="preserve">
+    <value>Encoding: </value>
   </data>
   <data name="LineInfoLabel" xml:space="preserve">
     <value>Lines: </value>

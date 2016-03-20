@@ -133,13 +133,22 @@
     <value>Legt fest ob detaillierte Zeicheninformationen angezeigt werden.</value>
   </data>
   <data name="EnableCharInfoDisplayName" xml:space="preserve">
-    <value>Aktiviere Zeicheninformationen</value>
+    <value>Zeige Zeicheninformationen</value>
+  </data>
+  <data name="EnableEncodingInfoDescription" xml:space="preserve">
+    <value>Legt fest ob die Zeichenkodierung angezeigt wird.</value>
+  </data>
+  <data name="EnableEncodingInfoDisplayName" xml:space="preserve">
+    <value>Zeige Zeichenkodierung</value>
   </data>
   <data name="EnableLineInfoDescription" xml:space="preserve">
     <value>Legt fest ob detaillierte Zeileninformationen angezeigt werden.</value>
   </data>
   <data name="EnableLineInfoDisplayName" xml:space="preserve">
-    <value>Aktiviere Zeileninformationen</value>
+    <value>Zeige Zeileninformationen</value>
+  </data>
+  <data name="EncodingInfoLabel" xml:space="preserve">
+    <value>Zeichenkodierung: </value>
   </data>
   <data name="LineInfoLabel" xml:space="preserve">
     <value>Zeilen: </value>

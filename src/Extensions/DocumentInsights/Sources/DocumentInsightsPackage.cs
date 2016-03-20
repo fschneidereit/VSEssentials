@@ -27,17 +27,17 @@ using Microsoft.VisualStudio.Shell;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
+    [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", ProductID, IconResourceID = 400)]
     [Guid(DocumentInsightsGuids.Package)]
     [ProvideOptionPage(typeof(DocumentInsightsOptionPage), "VSEssentials", "Document Insights", 120, 110, false)]
     sealed class DocumentInsightsPackage : Package
     {
         #region Constants
 
-        public const String ProductID = "1.0.0";
+        public const String ProductVersion = "1.1.0";
 
         #endregion
 

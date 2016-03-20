@@ -28,9 +28,9 @@ using System.ComponentModel;
 
 #endregion
 
-namespace VSEssentials.Extensions.DocumentInsights
+namespace VSEssentials.DocumentInsights
 {
-    public class DocumentInsightsOptionPage : DialogPage
+    public sealed class DocumentInsightsOptionPage : DialogPage
     {
         #region Properties
 
@@ -44,11 +44,19 @@ namespace VSEssentials.Extensions.DocumentInsights
         }
 
         [Category("Appearance")]
+        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.EnableEncodingInfoDisplayName)]
+        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.EnableEncodingInfoDescription)]
+        [DefaultValue(true)]
+        public Boolean EnableEncodingInfo {
+            get { return DocumentInsightsOptions.Current.EnableEncodingInfo; }
+            set { DocumentInsightsOptions.Current.EnableEncodingInfo = value; }
+        }
+
+        [Category("Appearance")]
         [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.EnableLineInfoDisplayName)]
         [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.EnableLineInfoDescription)]
         [DefaultValue(true)]
-        public Boolean EnableLineInfo
-        {
+        public Boolean EnableLineInfo {
             get { return DocumentInsightsOptions.Current.EnableLineInfo; }
             set { DocumentInsightsOptions.Current.EnableLineInfo = value; }
         }

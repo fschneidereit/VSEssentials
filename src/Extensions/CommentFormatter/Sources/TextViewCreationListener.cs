@@ -28,7 +28,7 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace VSEssentials.Extensions.CommentFormatter
+namespace VSEssentials.CommentFormatter
 {
     [Export(typeof(IWpfTextViewCreationListener))]
     [TextViewRole(PredefinedTextViewRoles.Document), ContentType("code")]
