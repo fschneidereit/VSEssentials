@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidInsertGuidCommandPackage">
+    <Buttons>
+      <Button guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>Insert new GUID</CommandName>
+          <ButtonText>Insert new GUID</ButtonText>
+          <MenuText>Insert new &amp;GUID</MenuText>
+          <ToolTipText>Inserts a new GUID at the current position.</ToolTipText>
+        </Strings>
+        <Strings language="de-de">
+          <CommandName>Neue GUID einfügen</CommandName>
+          <ButtonText>Neue GUID einfügen</ButtonText>
+          <MenuText>Neue &amp;GUID einfügen</MenuText>
+          <ToolTipText>Fügt eine neue GUID an der aktuellen Position ein.</ToolTipText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" priority="0x0100">
+      <Parent guid="guidStdEditor" id="IDG_VS_EDITOR_ADVANCED_CMDS"/>
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <VisibilityConstraints>
+    <VisibilityItem guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" context="GUID_TextEditorFactory" />
+  </VisibilityConstraints>
+
+  <KeyBindings>
+    <KeyBinding guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" key1="G" mod1="Control Shift" editor="guidVSStd97" />
+  </KeyBindings>
+
+  <Symbols>
+    <GuidSymbol name="guidInsertGuidCommandPackage" value="{3175e0b4-691b-4f1a-b027-46f7abf34729}" />
+
+    <GuidSymbol name="guidInsertGuidCommandPackageCmdSet" value="{3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb}">
+      <IDSymbol name="InsertGuidCommandId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+
+</CommandTable>
