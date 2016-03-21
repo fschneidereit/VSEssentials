@@ -4,7 +4,6 @@ A free and open source collection of essential Visual&nbsp;Studio&reg; extension
 
 ## Extensions ##
 ### Comment Formatter ###
-
 Download: **[Official VSIX Package (Current Release)](https://visualstudiogallery.msdn.microsoft.com/66521234-bd62-4e52-95a4-2ddbb225d081 "CommentFormatter.vsix")**
 
 The **Comment Formatter** extension provides additional formatting behavior for source code comments. The most prominent feature is the support for italicization, which can be configured for ordinary and documentation comments individually.
@@ -34,7 +33,6 @@ The configuration of the formatting of multiline comments can be found in the "F
 - Visual&nbsp;Studio&reg; 2015 (all Editions)
 
 ### Document Insights ###
-
 The **Document Insights** extension displays additional document information in a margin at the bottom of the text editor. This includes more detailed information about lines and characters: first, the actual (current) count, followed by the original (source) count in angle brackets, and the difference in round brackets at the end.
 
 ![Comment Formatter Screenshot](./src/Extensions/DocumentInsights/Resources/PreviewImage.png)
@@ -54,8 +52,20 @@ The configuration settings for this extension can be found in the Visual&nbsp;St
 #### Compatibility ####
 - Visual&nbsp;Studio&reg; 2015 (all Editions)
 
-### Semantic Formatter ###
+### Insert GUID Command ###
+The **Insert GUID Command** extension provides a quick way to insert a new GUID string in the text editor.
 
+### Notes ###
+The command to insert a new GUID string can be found in the *Advanced* sub-menu of the *Edit* menu in the Visual&nbsp;Studio&reg; IDE. It can also be executed via the keyboard shortcut "Ctrl+Shift+G".
+
+#### Language Support ####
+- English
+- German
+
+#### Compatibility ####
+- Visual&nbsp;Studio&reg; 2015 (all Editions)
+
+### Semantic Formatter ###
 The **Semantic Formatter** extension provides additional formatting for C# and Visual Basic source code. When enabled, field identifiers are italicized, which makes them easier to distinguish from parameters and local variables. Further, method identifiers are in boldface. This kind of resembles the formatting behavior found in [AvalonEdit](http://www.avalonedit.net "AvalonEdit").
 
 ![Comment Formatter Screenshot](./src/Extensions/SemanticFormatter/Resources/PreviewImage.png)
