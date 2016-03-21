@@ -63,6 +63,7 @@
     <Compile Include="Sources\LocalLocalizationProvider.cs" />
     <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
     <Compile Include="Sources\MethodIdentifierFormatDefinition.cs" />
+    <Compile Include="Sources\OutputLogger.cs" />
     <Compile Include="Sources\SemanticFormatter.cs" />
     <Compile Include="Sources\SemanticFormatterContext.cs" />
     <Compile Include="Sources\SemanticFormatterGuids.cs" />

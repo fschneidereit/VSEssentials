@@ -80,6 +80,7 @@ namespace VSEssentials.SemanticFormatter
             var tags = new List<ITagSpan<IClassificationTag>>();
 
             foreach (var span in spans) {
+                OutputLogger.Current.WriteLine(span.ToString());
                 var snapshot = span.Snapshot;
 
                 if (_context.IsEmpty || _context.Snapshot != snapshot) {
