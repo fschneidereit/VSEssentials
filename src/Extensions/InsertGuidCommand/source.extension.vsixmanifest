@@ -4,7 +4,10 @@
     <Identity Id="e36805fb-d4f0-4403-b0b1-241d88fa1cfa" Version="1.0.0" Language="en-US" Publisher="Florian Schneidereit" />
     <DisplayName>Insert GUID Command</DisplayName>
     <Description xml:space="preserve">Provides quick insertion of a GUID in the text editor.</Description>
+    <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
     <License>en-US\License.txt</License>
+    <ReleaseNotes>en-US\ReleaseNotes.txt</ReleaseNotes>
+    <Icon>Resources\Icon.png</Icon>
     <Tags>Insert GUID Command</Tags>
   </Metadata>
   <Installation>
