@@ -35,66 +35,57 @@ namespace VSEssentials.InsertGuidCommand
 {
     internal sealed class InsertGuidCommand
     {
-        #region Constants
+        #region Nested Singleton Class
 
-        public const Int32 CommandId = 0x0100;
-        public const String CommandSetGuid = "3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb";
+        private sealed class Singleton
+        {
+            public static readonly InsertGuidCommand Instance = new InsertGuidCommand();
+            static Singleton() { }
+        }
 
         #endregion
 
         #region Fields
 
-        private readonly Package _owner;
-
-        #endregion
-
-        #region Fields: Static
-
-        private static InsertGuidCommand _instance;
+        private readonly CommandID _commandID;
+        private readonly OleMenuCommand _menuCommand;
+        private Boolean _visible;
 
         #endregion
 
         #region Constructors
 
-        private InsertGuidCommand(Package owner)
+        private InsertGuidCommand()
         {
-            // Argument validation
-            if (owner == null) {
-                throw new ArgumentNullException(nameof(owner));
-            }
-
-            _owner = owner;
-
-            OleMenuCommandService commandService = ((IServiceProvider)_owner).GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null) {
-                var insertGuidCommandID = new CommandID(new Guid(CommandSetGuid), CommandId);
-                var insertGuidMenuItem = new OleMenuCommand(ExecuteCallback, insertGuidCommandID);
-                insertGuidMenuItem.BeforeQueryStatus += BeforeQueryStatus;
-                commandService.AddCommand(insertGuidMenuItem);
-            }
+            // Instance initialization
+            _commandID = new CommandID(new Guid("3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb"), 0x0100);
+            _menuCommand = new OleMenuCommand(Execute, null, BeforeQueryStatus, _commandID);
+            _visible = true;
         }
 
         #endregion
 
         #region Properties
+
+        public CommandID CommandID {
+            get { return _commandID; }
+        }
+
+        public Boolean IsVisible {
+            get { return _visible; }
+            set { _visible = value; }
+        }
+
+        public MenuCommand MenuCommand {
+            get { return _menuCommand; }
+        }
+
         #endregion
 
         #region Properties: Static
 
         public static InsertGuidCommand Instance {
-            get { return _instance; }
-            private set { _instance = value; }
-        }
-
-        #endregion
-
-        #region Methods: Static
-
-        public static void Initialize(Package owner)
-        {
-            if (_instance == null) {
-                _instance = new InsertGuidCommand(owner);
-            }
+            get { return Singleton.Instance; }
         }
 
         #endregion
@@ -103,11 +94,15 @@ namespace VSEssentials.InsertGuidCommand
 
         private void BeforeQueryStatus(Object sender, EventArgs e)
         {
+            var menuCommand = sender as OleMenuCommand;
+            if (menuCommand != null) {
+                menuCommand.Visible = IsVisible;
+            }
         }
 
-        private void ExecuteCallback(Object sender, EventArgs e)
+        private void Execute(Object sender, EventArgs e)
         {
-            IWpfTextView textView = GetCurrentTextView();
+            var textView = GetCurrentTextView();
             if (textView != null) {
                 if (textView.HasAggregateFocus) {
                     var caretPosition = GetCurrentCaretPosition(textView);

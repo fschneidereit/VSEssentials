@@ -22,7 +22,9 @@
 #region Using Directives
 
 using System;
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 
 #endregion
@@ -41,12 +43,61 @@ namespace VSEssentials.InsertGuidCommand
 
         #endregion
 
+        #region Fields
+
+        private OleMenuCommandService _commandService;
+        private WindowEvents _windowEvents;
+
+        #endregion
+
+        #region Methods: Event Handler
+
+        private void WindowEvents_WindowClosing(Window Window)
+        {
+            InsertGuidCommand.Instance.IsVisible = false;
+        }
+
+        private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
+        {
+            InsertGuidCommand.Instance.IsVisible = (GotFocus != null && GotFocus.Kind == "Document");
+        }
+
+        #endregion
+
         #region Methods: Overridden
+
+        protected override void Dispose(Boolean disposing)
+        {
+            if (disposing) {
+                if (_windowEvents != null) {
+                    _windowEvents.WindowClosing -= WindowEvents_WindowClosing;
+                    _windowEvents.WindowActivated -= WindowEvents_WindowActivated;
+                }
+                if (_commandService != null) {
+                    _commandService.RemoveCommand(InsertGuidCommand.Instance.MenuCommand);
+                }
+            }
+
+            base.Dispose(disposing);
+        }
 
         protected override void Initialize()
         {
-            InsertGuidCommand.Initialize(this);
             base.Initialize();
+
+            _commandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            if (_commandService != null) {
+                _commandService.AddCommand(InsertGuidCommand.Instance.MenuCommand);
+            }
+
+            var dte = GetService(typeof(DTE)) as DTE;
+            if (dte != null) {
+                _windowEvents = dte.Events.WindowEvents;
+                if (_windowEvents != null) {
+                    _windowEvents.WindowActivated += WindowEvents_WindowActivated;
+                    _windowEvents.WindowClosing += WindowEvents_WindowClosing;
+                }
+            }
         }
 
         #endregion

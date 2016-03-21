@@ -7,6 +7,7 @@
   <Commands package="guidInsertGuidCommandPackage">
     <Buttons>
       <Button guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <CommandName>Insert new GUID</CommandName>
