@@ -39,7 +39,7 @@ indent_size = 2
 insert_final_newline = false
 
 # Visual Studio extension files
-[*.{vsixlangpack,vsixmanifest}]
+[*.{vsct,vsixlangpack,vsixmanifest}]
 indent_style = space
 indent_size = 2
 insert_final_newline = false
