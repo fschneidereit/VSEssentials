@@ -22,18 +22,29 @@
 #region Using Directives
 
 using System;
+using System.ComponentModel.Composition;
+using Microsoft.VisualStudio.Text.Classification;
+using Microsoft.VisualStudio.Utilities;
 
 #endregion
 
 namespace VSEssentials.SemanticFormatter
 {
-    internal static class ClassificationTypeNames
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.ExtensionMethodIdentifier)]
+    [Name(ClassificationTypeNames.ExtensionMethodIdentifier)]
+    [Order(After = Priority.High)]
+    [UserVisible(true)]
+    internal sealed class ExtensionMethodIdentifierFormat : ClassificationFormatDefinition
     {
-        #region Constants
+        #region Constructors
 
-        public const String ExtensionMethodIdentifier = "identifier - extension method";
-        public const String FieldIdentifier = "identifier - field";
-        public const String OrdinaryMethodIdentifier = "identifier - ordinary method";
+        public ExtensionMethodIdentifierFormat()
+        {
+            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.ExtensionMethodIdentifierFormatDisplayName);
+            IsBold = true;
+            IsItalic = true;
+        }
 
         #endregion
     }

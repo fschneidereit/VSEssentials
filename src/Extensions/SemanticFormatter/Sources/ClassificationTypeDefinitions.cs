@@ -35,14 +35,19 @@ namespace VSEssentials.SemanticFormatter
         #region Properties
 
         [Export(typeof(ClassificationTypeDefinition))]
+        [Name(ClassificationTypeNames.ExtensionMethodIdentifier)]
+        [BaseDefinition(ClassificationTypeNames.OrdinaryMethodIdentifier)]
+        public static ClassificationTypeDefinition ExtensionMethodIdentifier { get; set; }
+
+        [Export(typeof(ClassificationTypeDefinition))]
         [Name(ClassificationTypeNames.FieldIdentifier)]
         [BaseDefinition(KnownClassificationTypeNames.Identifier)]
         public static ClassificationTypeDefinition FieldIdentifier { get; set; }
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [Name(ClassificationTypeNames.MethodIdentifier)]
+        [Name(ClassificationTypeNames.OrdinaryMethodIdentifier)]
         [BaseDefinition(KnownClassificationTypeNames.Identifier)]
-        public static ClassificationTypeDefinition MethodIdentifier { get; set; }
+        public static ClassificationTypeDefinition OrdinaryMethodIdentifier { get; set; }
 
         #endregion
     }

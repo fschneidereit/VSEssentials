@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExtensionMethodIdentifierFormatDisplayName" xml:space="preserve">
+    <value>Semantic Formatting - Extension Method</value>
+  </data>
   <data name="FieldIdentifierFormatDefinitionDisplayName" xml:space="preserve">
     <value>Semantic Formatting - Field</value>
   </data>
-  <data name="MethodIdentifierFormatDefinitionDisplayName" xml:space="preserve">
+  <data name="OrdinaryMethodIdentifierFormatDisplayName" xml:space="preserve">
     <value>Semantic Formatting - Method</value>
   </data>
 </root>

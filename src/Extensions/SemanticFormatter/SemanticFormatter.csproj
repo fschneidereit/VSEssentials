@@ -58,11 +58,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Sources\Empty.cs" />
+    <Compile Include="Sources\ExtensionMethodIdentifierFormat.cs" />
     <Compile Include="Sources\FieldIdentifierFormatDefinition.cs" />
     <Compile Include="Sources\KnownClassificationTypeNames.cs" />
     <Compile Include="Sources\LocalLocalizationProvider.cs" />
     <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
-    <Compile Include="Sources\MethodIdentifierFormatDefinition.cs" />
+    <Compile Include="Sources\OrdinaryMethodIdentifierFormat.cs" />
     <Compile Include="Sources\OutputLogger.cs" />
     <Compile Include="Sources\SemanticFormatter.cs" />
     <Compile Include="Sources\SemanticFormatterContext.cs" />

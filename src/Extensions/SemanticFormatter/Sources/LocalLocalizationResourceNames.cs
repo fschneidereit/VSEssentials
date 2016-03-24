@@ -31,8 +31,9 @@ namespace VSEssentials.SemanticFormatter
     {
         #region Constants
 
+        public const String ExtensionMethodIdentifierFormatDisplayName = nameof(ExtensionMethodIdentifierFormatDisplayName);
         public const String FieldIdentifierFormatDefinitionDisplayName = nameof(FieldIdentifierFormatDefinitionDisplayName);
-        public const String MethodIdentifierFormatDefinitionDisplayName = nameof(MethodIdentifierFormatDefinitionDisplayName);
+        public const String OrdinaryMethodIdentifierFormatDisplayName = nameof(OrdinaryMethodIdentifierFormatDisplayName);
 
         #endregion
     }

@@ -32,17 +32,17 @@ using Microsoft.VisualStudio.Utilities;
 namespace VSEssentials.SemanticFormatter
 {
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.MethodIdentifier)]
-    [Name(ClassificationTypeNames.MethodIdentifier)]
+    [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.OrdinaryMethodIdentifier)]
+    [Name(ClassificationTypeNames.OrdinaryMethodIdentifier)]
     [Order(After = Priority.High)]
     [UserVisible(true)]
-    internal sealed class MethodIdentifierFormatDefinition : ClassificationFormatDefinition
+    internal sealed class OrdinaryMethodIdentifierFormat : ClassificationFormatDefinition
     {
         #region Constructors
 
-        public MethodIdentifierFormatDefinition()
+        public OrdinaryMethodIdentifierFormat()
         {
-            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.MethodIdentifierFormatDefinitionDisplayName);
+            DisplayName = LocalLocalizationProvider.Current.GetString(LocalLocalizationResourceNames.OrdinaryMethodIdentifierFormatDisplayName);
             IsBold = true;
         }
 
