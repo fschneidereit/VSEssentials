@@ -1,1 +1,5 @@
-﻿Icon "Analytics" by Alfredo Hernandez (http://iconfinder.com/alfredoh) from Noun Project (https://thenounproject.com), licensed under a Creative Commons license (CC BY 3.0 US).
+﻿[Version 1.0.0]
+- Italicized field identifiers
+- Bold method identifiers, italicized for extension methods
+
+Icon "Analytics" by Alfredo Hernandez (http://iconfinder.com/alfredoh) from Noun Project (https://thenounproject.com), licensed under a Creative Commons license (CC BY 3.0 US).
