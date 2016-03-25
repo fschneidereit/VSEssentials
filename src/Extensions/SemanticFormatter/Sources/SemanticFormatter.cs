@@ -45,19 +45,27 @@ namespace VSEssentials.SemanticFormatter
         private readonly IClassificationType _extensionMethodIdentifierType;
         private readonly IClassificationType _fieldIdentifierType;
         private readonly IClassificationType _ordinaryMethodIdentifierType;
-        private readonly VisualStudioWorkspace _workspace;
+        private readonly Workspace _workspace;
 
         #endregion
 
         #region Constructors
 
-        public SemanticFormatter(VisualStudioWorkspace workspace, IClassificationTypeRegistryService classificationTypeRegistry)
+        public SemanticFormatter(
+            Workspace workspace,
+            IClassificationTypeRegistryService classificationTypeRegistry)
         {
             // Initialize instance
             _context = SemanticFormatterContext.Empty;
-            _extensionMethodIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.ExtensionMethodIdentifier);
-            _fieldIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.FieldIdentifier);
-            _ordinaryMethodIdentifierType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.OrdinaryMethodIdentifier);
+            _extensionMethodIdentifierType =
+                classificationTypeRegistry.GetClassificationType(
+                    ClassificationTypeNames.ExtensionMethodIdentifier);
+            _fieldIdentifierType =
+                classificationTypeRegistry.GetClassificationType(
+                    ClassificationTypeNames.FieldIdentifier);
+            _ordinaryMethodIdentifierType =
+                classificationTypeRegistry.GetClassificationType(
+                    ClassificationTypeNames.OrdinaryMethodIdentifier);
             _workspace = workspace;
         }
 
@@ -73,10 +81,11 @@ namespace VSEssentials.SemanticFormatter
 
         #region Methods
 
-        public IEnumerable<ITagSpan<IClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
+        public IEnumerable<ITagSpan<IClassificationTag>> GetTags(
+            NormalizedSnapshotSpanCollection spans)
         {
             if (spans.Count == 0) {
-                return Empty.Array<ITagSpan<IClassificationTag>>();
+                yield break;
             }
 
             var snapshot = spans[0].Snapshot;
@@ -85,12 +94,11 @@ namespace VSEssentials.SemanticFormatter
                 var task = SemanticFormatterContext.CreateAsync(snapshot);
                 task.Wait();
                 if (task.IsFaulted) {
-                    return Empty.Array<ITagSpan<IClassificationTag>>();
+                    yield break;
                 }
                 _context = task.Result;
             }
 
-            var tags = new List<ITagSpan<IClassificationTag>>();
             var identifiers = GetIdentifiersInSnapshotSpan(spans[0]);
             foreach (var identifier in identifiers) {
                 var node = GetNodeFromTextSpan(identifier.TextSpan);
@@ -106,68 +114,74 @@ namespace VSEssentials.SemanticFormatter
                 switch (symbol.Kind) {
                     case SymbolKind.Field:
                         if (symbol.ContainingType.TypeKind != TypeKind.Enum) {
-                            tags.Add(CreateFieldIdentifierTag(snapshot, identifier.TextSpan));
+                            yield return CreateFieldIdentifierTag(snapshot, identifier.TextSpan);
                         }
                         break;
                     case SymbolKind.Method:
                         var methodSymbol = symbol as IMethodSymbol;
                         if (methodSymbol != null) {
                             if (methodSymbol.MethodKind == MethodKind.Ordinary) {
-                                tags.Add(CreateOrdinaryMethodIdentifierTag(snapshot, identifier.TextSpan));
+                                yield return CreateOrdinaryMethodIdentifierTag(
+                                    snapshot,
+                                    identifier.TextSpan);
                             }
                             if (methodSymbol.IsExtensionMethod) {
-                                tags.Add(CreateExtensionMethodIdentifierTag(snapshot, identifier.TextSpan));
+                                yield return CreateExtensionMethodIdentifierTag(
+                                    snapshot,
+                                    identifier.TextSpan);
                             }
                         }
                         break;
                 }
             }
-
-            return tags;
         }
 
         #endregion
 
         #region Methods: Implementation
 
-        private ITagSpan<IClassificationTag> CreateExtensionMethodIdentifierTag(ITextSnapshot snapshot, TextSpan span)
+        private ITagSpan<IClassificationTag> CreateExtensionMethodIdentifierTag(
+            ITextSnapshot snapshot,
+            TextSpan span)
         {
             return new TagSpan<IClassificationTag>(
                 new SnapshotSpan(snapshot, span.Start, span.Length),
                 new ClassificationTag(_extensionMethodIdentifierType));
         }
 
-        private ITagSpan<IClassificationTag> CreateFieldIdentifierTag(ITextSnapshot snapshot, TextSpan span)
+        private ITagSpan<IClassificationTag> CreateFieldIdentifierTag(
+            ITextSnapshot snapshot,
+            TextSpan span)
         {
             return new TagSpan<IClassificationTag>(
                 new SnapshotSpan(snapshot, span.Start, span.Length),
                 new ClassificationTag(_fieldIdentifierType));
         }
 
-        private ITagSpan<IClassificationTag> CreateOrdinaryMethodIdentifierTag(ITextSnapshot snapshot, TextSpan span)
+        private ITagSpan<IClassificationTag> CreateOrdinaryMethodIdentifierTag(
+            ITextSnapshot snapshot,
+            TextSpan span)
         {
             return new TagSpan<IClassificationTag>(
                 new SnapshotSpan(snapshot, span.Start, span.Length),
                 new ClassificationTag(_ordinaryMethodIdentifierType));
         }
 
-        private IList<ClassifiedSpan> GetIdentifiersInSnapshotSpan(SnapshotSpan span)
+        private IEnumerable<ClassifiedSpan> GetIdentifiersInSnapshotSpan(SnapshotSpan span)
         {
             // Get classified spans
             var textSpan = TextSpan.FromBounds(span.Start, span.End);
-            var classifiedSpans = Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
+            var classifiedSpans =
+                Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
 
             // Filter identifiers
-            var identifierSpans = new List<ClassifiedSpan>();
             foreach (var classifiedSpan in classifiedSpans) {
                 if (classifiedSpan.ClassificationType.Equals(
                     KnownClassificationTypeNames.Identifier,
                     StringComparison.InvariantCultureIgnoreCase)) {
-                    identifierSpans.Add(classifiedSpan);
+                    yield return classifiedSpan;
                 }
             }
-
-            return identifierSpans;
         }
 
         private SyntaxNode GetNodeFromTextSpan(TextSpan span)

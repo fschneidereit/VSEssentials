@@ -41,18 +41,22 @@ namespace VSEssentials.CommentFormatter
         #region Fields
 
         private MultiLineCommentTaggerContext _context;
-        private readonly IClassificationType _blockCommentType;
-        private readonly VisualStudioWorkspace _workspace;
+        private readonly IClassificationType _multiLineCommentType;
+        private readonly Workspace _workspace;
 
         #endregion
 
         #region Constructors
 
-        public MultiLineCommentTagger(VisualStudioWorkspace workspace, IClassificationTypeRegistryService classificationTypeRegistry)
+        public MultiLineCommentTagger(
+            Workspace workspace,
+            IClassificationTypeRegistryService classificationTypeRegistry)
         {
             // Instance initialization
             _context = MultiLineCommentTaggerContext.Empty;
-            _blockCommentType = classificationTypeRegistry.GetClassificationType(ClassificationTypeNames.MultiLineComment);
+            _multiLineCommentType =
+                classificationTypeRegistry.GetClassificationType(
+                    ClassificationTypeNames.MultiLineComment);
             _workspace = workspace;
         }
 
@@ -68,74 +72,68 @@ namespace VSEssentials.CommentFormatter
 
         #region Methods
 
-        public IEnumerable<ITagSpan<IClassificationTag>> GetTags(NormalizedSnapshotSpanCollection spans)
+        public IEnumerable<ITagSpan<IClassificationTag>> GetTags(
+            NormalizedSnapshotSpanCollection spans)
         {
             if (spans.Count == 0) {
-                return Empty.Array<ITagSpan<IClassificationTag>>();
+                yield break;
             }
 
-            var tags = new List<ITagSpan<IClassificationTag>>();
+            var snapshot = spans[0].Snapshot;
 
-            foreach (var span in spans) {
-                var snapshot = span.Snapshot;
+            if (_context.IsEmpty || _context.Snapshot != snapshot) {
+                var task = MultiLineCommentTaggerContext.CreateAsync(snapshot);
+                task.Wait();
+                if (task.IsFaulted) {
+                    yield break;
+                }
+                _context = task.Result;
+            }
 
-                if (_context.IsEmpty || _context.Snapshot != snapshot) {
-                    var task = MultiLineCommentTaggerContext.CreateAsync(snapshot);
-                    task.Wait();
-                    if (task.IsFaulted) {
-                        continue;
-                    }
-                    _context = task.Result;
+            var comments = GetCommentsInSnapshotSpan(spans[0]);
+            foreach (var comment in comments) {
+                var token = GetTokenFromClassifiedSpan(comment);
+                if (token == null) {
+                    continue;
                 }
 
-                var comments = GetCommentsInSnapshotSpan(span);
-                foreach (var comment in comments) {
-                    var token = GetTokenFromClassifiedSpan(comment);
-
-                    if (token == null) {
-                        continue;
-                    }
-
-                    var allTrivia = token.GetAllTrivia();
-                    foreach (var trivia in allTrivia) {
-                        if (trivia.IsKind(CS.SyntaxKind.MultiLineCommentTrivia)) {
-                            tags.Add(CreateBlockCommentTag(snapshot, trivia.Span));
-                        }
+                var allTrivia = token.GetAllTrivia();
+                foreach (var trivia in allTrivia) {
+                    if (trivia.IsKind(CS.SyntaxKind.MultiLineCommentTrivia)) {
+                        yield return CreateMultiLineCommentTag(snapshot, trivia.Span);
                     }
                 }
             }
-
-            return tags;
         }
 
         #endregion
 
         #region Methods: Implementation
 
-        private ITagSpan<IClassificationTag> CreateBlockCommentTag(ITextSnapshot snapshot, TextSpan span)
+        private ITagSpan<IClassificationTag> CreateMultiLineCommentTag(
+            ITextSnapshot snapshot,
+            TextSpan span)
         {
             return new TagSpan<IClassificationTag>(
                 new SnapshotSpan(snapshot, span.Start, span.Length),
-                new ClassificationTag(_blockCommentType));
+                new ClassificationTag(_multiLineCommentType));
         }
 
-        private IList<ClassifiedSpan> GetCommentsInSnapshotSpan(SnapshotSpan span)
+        private IEnumerable<ClassifiedSpan> GetCommentsInSnapshotSpan(SnapshotSpan span)
         {
             // Get classified spans
             var textSpan = TextSpan.FromBounds(span.Start, span.End);
-            var classifiedSpans = Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
+            var classifiedSpans =
+                Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
 
             // Filter identifiers
-            var commentSpans = new List<ClassifiedSpan>();
             foreach (var classifiedSpan in classifiedSpans) {
                 if (classifiedSpan.ClassificationType.Equals(
                     KnownClassificationTypeNames.Comment,
                     StringComparison.InvariantCultureIgnoreCase)) {
-                    commentSpans.Add(classifiedSpan);
+                    yield return classifiedSpan;
                 }
             }
-
-            return commentSpans;
         }
 
         private SyntaxToken GetTokenFromClassifiedSpan(ClassifiedSpan span)

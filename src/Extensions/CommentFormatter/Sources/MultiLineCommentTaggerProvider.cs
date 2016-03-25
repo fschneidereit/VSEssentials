@@ -40,12 +40,10 @@ namespace VSEssentials.CommentFormatter
     {
         #region Fields
 
-#pragma warning disable CS0649
         [Import]
-        private IClassificationTypeRegistryService _classificationTypeRegistry;
+        private IClassificationTypeRegistryService ClassificationTypeRegistry { get; set; }
         [Import]
-        private VisualStudioWorkspace _workspace;
-#pragma warning restore CS0649
+        private VisualStudioWorkspace Workspace { get; set; }
 
         #endregion
 
@@ -54,7 +52,7 @@ namespace VSEssentials.CommentFormatter
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
             return (ITagger<T>)buffer.Properties.GetOrCreateSingletonProperty(
-                () => new MultiLineCommentTagger(_workspace, _classificationTypeRegistry));
+                () => new MultiLineCommentTagger(Workspace, ClassificationTypeRegistry));
         }
 
         #endregion
