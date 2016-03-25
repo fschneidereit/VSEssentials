@@ -66,16 +66,16 @@ The command to insert a new GUID string can be found in the *Advanced* sub-menu 
 - Visual&nbsp;Studio&reg; 2015 (all Editions)
 
 ### Semantic Formatter ###
-The **Semantic Formatter** extension provides additional formatting for C# and Visual Basic source code. When enabled, field identifiers are italicized, which makes them easier to distinguish from parameters and local variables. Further, method identifiers are in boldface. This kind of resembles the formatting behavior found in [AvalonEdit](http://www.avalonedit.net "AvalonEdit").
+The **Semantic Formatter** extension provides additional formatting for C# and Visual Basic source code. When enabled, field identifiers are italicized to make them easier distinguishable from arguments and local variables. Further, method identifiers are in boldface, and italicized if it is an extension method.
 
 ![Comment Formatter Screenshot](./src/Extensions/SemanticFormatter/Resources/PreviewImage.png)
 
 #### Notes ####
-The semantic formatting can be configured using the "Fonts and Colors" category in the Visual&nbsp;Studio&reg; options dialog. The respective element names start with "Semantic Formatting".
+The semantic formatting can be configured using the "Fonts and Colors" category in the Visual&nbsp;Studio&reg; IDE options dialog. Look for element names that start with "Semantic Formatting".
 
 #### Feature Summary ####
 - Italicized field identifiers
-- Bold method identifiers
+- Bold method identifiers, italicized for extension methods
 
 #### Language Support ####
 - English
