@@ -6,6 +6,7 @@
     <Description xml:space="preserve">Provides additional formatting behavior for source file comments.</Description>
     <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
     <License>en-US\License.txt</License>
+    <ReleaseNotes>en-US\ReleaseNotes.txt</ReleaseNotes>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\PreviewImage.png</PreviewImage>
     <Tags>Editor Formatting Comment Documentation</Tags>
