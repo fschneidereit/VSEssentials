@@ -73,9 +73,7 @@ namespace VSEssentials.SemanticFormatter
 
         #region Events
 
-#pragma warning disable CS0067
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
-#pragma warning restore CS0067
 
         #endregion
 
@@ -133,6 +131,14 @@ namespace VSEssentials.SemanticFormatter
                         }
                         break;
                 }
+            }
+        }
+
+        private void OnTagsChanged(SnapshotSpanEventArgs e)
+        {
+            var handler = TagsChanged;
+            if (handler != null) {
+                handler(this, e);
             }
         }
 
