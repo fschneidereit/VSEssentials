@@ -91,6 +91,10 @@
     <Content Include="en-US\License.txt">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="en-US\ReleaseNotes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\Icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

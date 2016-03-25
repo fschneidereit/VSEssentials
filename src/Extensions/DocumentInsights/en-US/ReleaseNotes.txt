@@ -1,0 +1,4 @@
+﻿[Version 1.0.0]
+- Line information: Actual (current) and original (source) count, and difference
+- Character information: Actual (current) and original (source) count, and difference
+- Encoding information

@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="969a1a15-2834-48a1-a2ff-53a19aea02d6" Version="1.1.0" Language="en-US" Publisher="Florian Schneidereit" />
+    <Identity Id="969a1a15-2834-48a1-a2ff-53a19aea02d6" Version="1.0.0" Language="en-US" Publisher="Florian Schneidereit" />
     <DisplayName>Document Insights</DisplayName>
     <Description xml:space="preserve">Displays additional document information at the bottom of the text editor.</Description>
     <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
     <License>en-US\License.txt</License>
+    <ReleaseNotes>en-US\ReleaseNotes.txt</ReleaseNotes>
     <Icon>Resources\Icon.png</Icon>
     <PreviewImage>Resources\PreviewImage.png</PreviewImage>
     <Tags>Document Code Statistics</Tags>
