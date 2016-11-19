@@ -39,7 +39,7 @@ namespace VSEssentials.InsertGuidCommand
     {
         #region Constants
 
-        public const String ProductVersion = "1.0.0";
+        public const String ProductVersion = "1.2.0";
 
         #endregion
 
