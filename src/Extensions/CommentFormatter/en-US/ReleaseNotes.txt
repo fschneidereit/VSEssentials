@@ -1,4 +1,7 @@
-﻿[Version 1.1.0]
+﻿[Version 2017.0.1]
+- Migration to Visual Studio 2017
+
+[Version 1.1.0]
 - Bold multiline comments
 
 [Version 1.0.0]

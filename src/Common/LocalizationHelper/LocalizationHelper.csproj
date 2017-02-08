@@ -6,8 +6,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <BaseIntermediateOutputPath Condition=" '$(BaseIntermediateOutputPath)' == '' ">$(SolutionDir)obj\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath Condition=" '$(IntermediateOutputPath)' == '' ">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
-    <OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath Condition=" '$(IntermediateOutputPath)' == '' ">$(BaseIntermediateOutputPath)$(Configuration)\$(MSBuildThisFileName)\</IntermediateOutputPath>
+    <OutputPath Condition=" '$(OutputPath)' == '' ">$(SolutionDir)bin\$(Configuration)\$(MSBuildThisFileName)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
     <ProjectGuid>{707EFBA1-90CB-4843-83D9-349A532757A4}</ProjectGuid>

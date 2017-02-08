@@ -37,7 +37,7 @@ namespace VSEssentials.SemanticFormatter
     {
         #region Constants
 
-        public const String ProductVersion = "1.2.0";
+        public const String ProductVersion = "2017.0.1";
 
         #endregion
 

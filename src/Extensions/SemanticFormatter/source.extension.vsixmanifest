@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="b6887952-a694-49d9-af83-c5f827b96e31" Version="1.2.0" Language="en-US" Publisher="Florian Schneidereit" />
+    <Identity Id="b6887952-a694-49d9-af83-c5f827b96e31" Version="2017.0.1" Language="en-US" Publisher="Florian Schneidereit" />
     <DisplayName>Semantic Formatter</DisplayName>
     <Description xml:space="preserve">Provides semantic formatting for C# and Visual Basic source code.</Description>
     <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
@@ -24,4 +24,8 @@
     <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0.26004.1,16.0)" DisplayName="Visual Studio-Kern-Editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.Compiler" Version="[15.0.26004.1,16.0)" DisplayName="C#- und Visual Basic Roslyn-Compiler" />
+  </Prerequisites>
 </PackageManifest>

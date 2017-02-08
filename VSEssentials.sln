@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{6A41AB02-1D0C-463A-89C3-0D117A6E1DE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AE981D8C-0395-47BA-BA2E-7CFC87D2352B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentFormatter", "src\Extensions\CommentFormatter\CommentFormatter.csproj", "{D01956E3-ABB5-4F2C-B1C3-679E96650F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentInsights", "src\Extensions\DocumentInsights\DocumentInsights.csproj", "{9B35A908-6979-45DE-A1A0-DCC1AF9DC431}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{AE981D8C-0395-47BA-BA2E-7CFC87D2352B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizationHelper", "src\Common\LocalizationHelper\LocalizationHelper.csproj", "{707EFBA1-90CB-4843-83D9-349A532757A4}"
 EndProject

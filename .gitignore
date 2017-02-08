@@ -16,6 +16,10 @@
 *.suo
 *.user
 
+# Migration
+[Bb]ackup/
+UpgradeLog.htm
+
 # NuGet
 **/packages/*
 **/pkg/*

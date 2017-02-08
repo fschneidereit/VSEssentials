@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="e36805fb-d4f0-4403-b0b1-241d88fa1cfa" Version="1.2.0" Language="en-US" Publisher="Florian Schneidereit" />
+    <Identity Id="e36805fb-d4f0-4403-b0b1-241d88fa1cfa" Version="2017.0.1" Language="en-US" Publisher="Florian Schneidereit" />
     <DisplayName>Insert GUID Command</DisplayName>
     <Description xml:space="preserve">Provides quick insertion of a GUID in the text editor.</Description>
     <MoreInfo>https://github.com/fschneidereit/VSEssentials</MoreInfo>
@@ -22,4 +22,7 @@
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
   </Assets>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0.26004.1,16.0)" DisplayName="Visual Studio-Kern-Editor" />
+  </Prerequisites>
 </PackageManifest>

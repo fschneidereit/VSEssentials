@@ -1,4 +1,7 @@
-﻿[Version 1.0.0]
+﻿[Version 2017.0.1]
+- Migration to Visual Studio 2017
+
+[Version 1.0.0]
 - Italicized field identifiers
 - Bold method identifiers, italicized for extension methods
 

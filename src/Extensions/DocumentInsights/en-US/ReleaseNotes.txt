@@ -1,4 +1,7 @@
-﻿[Version 1.0.0]
+﻿[Version 2017.0.1]
+- Migration to Visual Studio 2017
+
+[Version 1.0.0]
 - Line information: Actual (current) and original (source) count, and difference
 - Character information: Actual (current) and original (source) count, and difference
 - Encoding information
