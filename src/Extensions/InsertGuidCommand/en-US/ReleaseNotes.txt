@@ -1,4 +1,8 @@
-﻿[Version 2017.0.1]
+﻿[Version 2017.0.2]
+- Fixed localization issue
+- Fixed key binding (now defaults to Shift+Alt+G)
+
+[Version 2017.0.1]
 - Migration to Visual Studio 2017
 
 [Version 1.0.0]

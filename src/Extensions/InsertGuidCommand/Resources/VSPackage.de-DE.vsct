@@ -10,12 +10,6 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>Insert new GUID</CommandName>
-          <ButtonText>Insert new GUID</ButtonText>
-          <MenuText>Insert new &amp;GUID</MenuText>
-          <ToolTipText>Inserts a new GUID at the current position.</ToolTipText>
-        </Strings>
-        <Strings language="de-de">
           <CommandName>Neue GUID einfügen</CommandName>
           <ButtonText>Neue GUID einfügen</ButtonText>
           <MenuText>Neue &amp;GUID einfügen</MenuText>
@@ -36,12 +30,11 @@
   </VisibilityConstraints>
 
   <KeyBindings>
-    <KeyBinding guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" key1="G" mod1="Control Shift" editor="guidVSStd97" />
+    <KeyBinding guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" mod1="Shift Alt" key1="G" editor="guidVSStd97" />
   </KeyBindings>
 
   <Symbols>
     <GuidSymbol name="guidInsertGuidCommandPackage" value="{3175e0b4-691b-4f1a-b027-46f7abf34729}" />
-
     <GuidSymbol name="guidInsertGuidCommandPackageCmdSet" value="{3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb}">
       <IDSymbol name="InsertGuidCommandId" value="0x0100" />
     </GuidSymbol>
