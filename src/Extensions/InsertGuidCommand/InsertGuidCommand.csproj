@@ -237,6 +237,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <VSCTCompile Include="Resources\VSPackage.de-DE.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
     <VSCTCompile Include="Resources\VSPackage.en-US.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
@@ -246,17 +249,17 @@
       <LogicalName>ExtensionResources.de-DE.Resources</LogicalName>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ExtensionResources.resx">
-      <LogicalName>ExtensionResources.Resources</LogicalName>
+    <EmbeddedResource Include="Resources\ExtensionResources.en-US.resx">
+      <LogicalName>ExtensionResources.en-US.Resources</LogicalName>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\VSPackage.de-DE.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.de-DE.Resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\VSPackage.resx">
+    <EmbeddedResource Include="Resources\VSPackage.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
-      <LogicalName>VSPackage.Resources</LogicalName>
+      <LogicalName>VSPackage.en-US.Resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -279,9 +282,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Package.ico" />
-    <VSCTCompile Include="Resources\VSPackage.de-DE.vsct">
-      <ResourceName>Menus.ctmenu</ResourceName>
-    </VSCTCompile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
