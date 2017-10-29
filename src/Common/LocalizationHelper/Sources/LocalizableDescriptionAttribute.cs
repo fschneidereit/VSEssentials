@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 namespace VSEssentials.Common
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Event)]
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class LocalizableDescriptionAttribute : DescriptionAttribute
     {
         #region Fields
