@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2017 Florian Schneidereit
+ *  Copyright © 2015-2016 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,23 +21,50 @@
 
 #region Using Directives
 
-using Microsoft.VisualStudio.Shell;
+using VSEssentials.Common;
 using System;
-using System.Runtime.InteropServices;
+using System.Reflection;
 
 #endregion
 
 namespace VSEssentials.CommentFormatter
 {
-    [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [ProvideOptionPage(typeof(CommentFormatterOptionPage), CommentFormatterOptionPage.CategoryName, CommentFormatterOptionPage.PageName, 120, 130, false)]
-    [Guid(CommentFormatterGuids.Package)]
-    internal sealed class CommentFormatterPackage : Package
+    internal sealed class CommentFormatterLocalizationProvider : LocalizationProvider
     {
-        #region Constants
+        #region Fields
 
-        public const String ProductVersion = "2017.0.1";
+        private static readonly Lazy<CommentFormatterLocalizationProvider> _instance =
+            new Lazy<CommentFormatterLocalizationProvider>(CreateInstance);
+
+        #endregion
+
+        #region Constructors
+
+        public CommentFormatterLocalizationProvider() : base(Assembly.GetExecutingAssembly())
+        {
+        }
+
+        #endregion
+
+        #region Properties
+
+        public static CommentFormatterLocalizationProvider Instance {
+            get { return _instance.Value; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static CommentFormatterLocalizationProvider CreateInstance()
+        {
+            return new CommentFormatterLocalizationProvider();
+        }
+
+        public String GetString(String resourceName)
+        {
+            return ResourceManager.GetString(resourceName);
+        }
 
         #endregion
     }

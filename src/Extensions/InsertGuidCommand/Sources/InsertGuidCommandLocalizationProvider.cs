@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -22,22 +22,49 @@
 #region Using Directives
 
 using System;
+using System.Reflection;
+using VSEssentials.Common;
 
 #endregion
 
-namespace VSEssentials.CommentFormatter
+namespace VSEssentials.InsertGuidCommand
 {
-    internal static class LocalLocalizationResourceNames
+    internal sealed class InsertGuidCommandLocalizationProvider : LocalizationProvider
     {
-        #region Constants
+        #region Fields
 
-        public const String FadeDocumentationTagsDescription = nameof(FadeDocumentationTagsDescription);
-        public const String FadeDocumentationTagsDisplayName = nameof(FadeDocumentationTagsDisplayName);
-        public const String ItalicizeCommentsDescription = nameof(ItalicizeCommentsDescription);
-        public const String ItalicizeCommentsDisplayName = nameof(ItalicizeCommentsDisplayName);
-        public const String ItalicizeDocumentationCommentsDescription = nameof(ItalicizeDocumentationCommentsDescription);
-        public const String ItalicizeDocumentationCommentsDisplayName = nameof(ItalicizeDocumentationCommentsDisplayName);
-        public const String MultiLineCommentFormatDefinitionDisplayName = nameof(MultiLineCommentFormatDefinitionDisplayName);
+        private static readonly Lazy<InsertGuidCommandLocalizationProvider> _instance =
+            new Lazy<InsertGuidCommandLocalizationProvider>(CreateInstance);
+
+        #endregion
+
+        #region Constructors
+
+        public InsertGuidCommandLocalizationProvider() : base(Assembly.GetExecutingAssembly())
+        {
+        }
+
+        #endregion
+
+        #region Properties
+
+        public static InsertGuidCommandLocalizationProvider Instance {
+            get { return _instance.Value; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        private static InsertGuidCommandLocalizationProvider CreateInstance()
+        {
+            return new InsertGuidCommandLocalizationProvider();
+        }
+
+        public String GetString(String resourceName)
+        {
+            return ResourceManager.GetString(resourceName);
+        }
 
         #endregion
     }

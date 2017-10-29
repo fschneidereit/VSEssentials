@@ -6,7 +6,7 @@
 
   <Commands package="guidInsertGuidCommandPackage">
     <Buttons>
-      <Button guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" priority="0x0100" type="Button">
+      <Button guid="guidInsertGuidCommandPackageCommands" id="idInsertNewGuidCommand" priority="0x0100" type="Button">
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -16,27 +16,44 @@
           <ToolTipText>Inserts a new GUID at the current position.</ToolTipText>
         </Strings>
       </Button>
+      <Button guid="guidInsertGuidCommandPackageCommands" id="idInsertLastGuidCommand" priority="0x0101" type="Button">
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <CommandName>Insert last GUID</CommandName>
+          <ButtonText>Insert last GUID</ButtonText>
+          <MenuText>Insert &amp;last GUID</MenuText>
+          <ToolTipText>Reinserts the last new GUID at the current position.</ToolTipText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
 
   <CommandPlacements>
-    <CommandPlacement guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" priority="0x0100">
+    <CommandPlacement guid="guidInsertGuidCommandPackageCommands" id="idInsertNewGuidCommand" priority="0x0100">
+      <Parent guid="guidStdEditor" id="IDG_VS_EDITOR_ADVANCED_CMDS"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidInsertGuidCommandPackageCommands" id="idInsertLastGuidCommand" priority="0x0101">
       <Parent guid="guidStdEditor" id="IDG_VS_EDITOR_ADVANCED_CMDS"/>
     </CommandPlacement>
   </CommandPlacements>
 
   <VisibilityConstraints>
-    <VisibilityItem guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" context="GUID_TextEditorFactory" />
+    <VisibilityItem guid="guidInsertGuidCommandPackageCommands" id="idInsertNewGuidCommand" context="GUID_TextEditorFactory" />
+    <VisibilityItem guid="guidInsertGuidCommandPackageCommands" id="idInsertLastGuidCommand" context="GUID_TextEditorFactory" />
   </VisibilityConstraints>
 
   <KeyBindings>
-    <KeyBinding guid="guidInsertGuidCommandPackageCmdSet" id="InsertGuidCommandId" mod1="Shift Alt" key1="G" editor="guidVSStd97" />
+    <KeyBinding guid="guidInsertGuidCommandPackageCommands" id="idInsertNewGuidCommand" mod1="Shift Alt" key1="G" editor="guidVSStd97" />
+    <KeyBinding guid="guidInsertGuidCommandPackageCommands" id="idInsertLastGuidCommand" mod1="Control Shift Alt" key1="G" editor="guidVSStd97" />
   </KeyBindings>
 
   <Symbols>
     <GuidSymbol name="guidInsertGuidCommandPackage" value="{3175e0b4-691b-4f1a-b027-46f7abf34729}" />
-    <GuidSymbol name="guidInsertGuidCommandPackageCmdSet" value="{3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb}">
-      <IDSymbol name="InsertGuidCommandId" value="0x0100" />
+    <GuidSymbol name="guidInsertGuidCommandPackageCommands" value="{3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb}">
+      <IDSymbol name="idInsertNewGuidCommand" value="0x0100" />
+      <IDSymbol name="idInsertLastGuidCommand" value="0x0101" />
     </GuidSymbol>
   </Symbols>
 

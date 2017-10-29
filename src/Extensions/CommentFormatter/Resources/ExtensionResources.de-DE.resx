@@ -117,25 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FadeDocumentationTagsDescription" xml:space="preserve">
+  <data name="FadeDocumentationTagsOptionDescription" xml:space="preserve">
     <value>Legt fest ob Dokumentations-Tags halbtransparent dargestellt werden.</value>
   </data>
-  <data name="FadeDocumentationTagsDisplayName" xml:space="preserve">
+  <data name="FadeDocumentationTagsOptionDisplayName" xml:space="preserve">
     <value>Dokumentations-Tags abblenden</value>
   </data>
-  <data name="ItalicizeCommentsDescription" xml:space="preserve">
+  <data name="ItalicizeCommentsOptionDescription" xml:space="preserve">
     <value>Legt fest ob Kommentare kursiv dargestellt werden.</value>
   </data>
-  <data name="ItalicizeCommentsDisplayName" xml:space="preserve">
+  <data name="ItalicizeCommentsOptionDisplayName" xml:space="preserve">
     <value>Kursiver Stil für Kommentare</value>
   </data>
-  <data name="ItalicizeDocumentationCommentsDescription" xml:space="preserve">
+  <data name="ItalicizeDocumentationCommentsOptionDescription" xml:space="preserve">
     <value>Legt fest ob Dokumentationskommentare kursiv dargestellt werden.</value>
   </data>
-  <data name="ItalicizeDocumentationCommentsDisplayName" xml:space="preserve">
+  <data name="ItalicizeDocumentationCommentsOptionDisplayName" xml:space="preserve">
     <value>Kursiver Stil für Dokumentationskommentare</value>
   </data>
   <data name="MultiLineCommentFormatDefinitionDisplayName" xml:space="preserve">
     <value>Kommentar - Mehrzeilig</value>
+  </data>
+  <data name="NoString" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="YesString" xml:space="preserve">
+    <value>Ja</value>
   </data>
 </root>

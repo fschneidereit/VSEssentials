@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2016 Florian Schneidereit
+ *  Copyright © 2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -25,7 +25,11 @@ using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 using EnvDTE;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.VisualStudio.TextManager.Interop;
 
 #endregion
 
@@ -34,12 +38,13 @@ namespace VSEssentials.InsertGuidCommand
     [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideOptionPage(typeof(InsertGuidCommandOptionPage), InsertGuidCommandOptionPage.CategoryName, InsertGuidCommandOptionPage.PageName, 120, 130, false)]
     [Guid(InsertGuidCommandGuids.Package)]
     internal sealed class InsertGuidCommandPackage : Package
     {
         #region Constants
 
-        public const String ProductVersion = "2017.0.3";
+        public const String ProductVersion = "2017.11.0";
 
         #endregion
 
@@ -54,12 +59,14 @@ namespace VSEssentials.InsertGuidCommand
 
         private void WindowEvents_WindowClosing(Window Window)
         {
-            InsertGuidCommand.Instance.IsVisible = false;
+            InsertLastGuidCommand.Instance.IsVisible = false;
+            InsertNewGuidCommand.Instance.IsVisible = false;
         }
 
         private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
         {
-            InsertGuidCommand.Instance.IsVisible = (GotFocus != null && GotFocus.Kind == "Document");
+            InsertNewGuidCommand.Instance.IsVisible = GotFocus != null && GotFocus.Kind == "Document";
+            InsertLastGuidCommand.Instance.IsVisible = InsertNewGuidCommand.Instance.IsVisible;
         }
 
         #endregion
@@ -74,7 +81,8 @@ namespace VSEssentials.InsertGuidCommand
                     _windowEvents.WindowActivated -= WindowEvents_WindowActivated;
                 }
                 if (_commandService != null) {
-                    _commandService.RemoveCommand(InsertGuidCommand.Instance.MenuCommand);
+                    _commandService.RemoveCommand(InsertLastGuidCommand.Instance.MenuCommand);
+                    _commandService.RemoveCommand(InsertNewGuidCommand.Instance.MenuCommand);
                 }
             }
 
@@ -87,17 +95,38 @@ namespace VSEssentials.InsertGuidCommand
 
             _commandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (_commandService != null) {
-                _commandService.AddCommand(InsertGuidCommand.Instance.MenuCommand);
+                _commandService.AddCommand(InsertNewGuidCommand.Instance.MenuCommand);
+                _commandService.AddCommand(InsertLastGuidCommand.Instance.MenuCommand);
             }
 
-            var dte = GetService(typeof(DTE)) as DTE;
-            if (dte != null) {
+            if (GetService(typeof(DTE)) is DTE dte) {
                 _windowEvents = dte.Events.WindowEvents;
                 if (_windowEvents != null) {
                     _windowEvents.WindowActivated += WindowEvents_WindowActivated;
                     _windowEvents.WindowClosing += WindowEvents_WindowClosing;
                 }
             }
+        }
+
+        #endregion
+
+        #region Methods: Static
+
+        public static ITextView GetCurrentTextView()
+        {
+            if (GetGlobalService(typeof(SComponentModel)) is IComponentModel componentModel) {
+                var editorAdapter = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+                if (editorAdapter != null) {
+                    if (ServiceProvider.GlobalProvider.GetService(typeof(SVsTextManager)) is IVsTextManager textManager) {
+                        textManager.GetActiveView(1, null, out var currentView);
+                        if (currentView != null) {
+                            return editorAdapter.GetWpfTextView(currentView);
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
 
         #endregion

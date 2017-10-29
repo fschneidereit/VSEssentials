@@ -22,18 +22,37 @@
 #region Using Directives
 
 using System;
+using VSEssentials.Common;
 
 #endregion
 
 namespace VSEssentials.InsertGuidCommand
 {
-    internal static class InsertGuidCommandGuids
+    public enum GuidParenthesis
     {
-        #region Constants
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidParenthesisNoneDescription)]
+        None,
 
-        public const String MenuGroup = "3020eb2e-3b3d-4e0c-b165-5b8bd559a3cb";
-        public const String Package = "3175e0b4-691b-4f1a-b027-46f7abf34729";
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidParenthesisCurlyBracketsDescription)]
+        CurlyBrackets,
 
-        #endregion
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidParenthesisSquareBracketsDescription)]
+        SquareBrackets,
+
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidParenthesisAngleBracketsDescription)]
+        AngleBrackets,
+
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidParenthesisRoundBracketsDescription)]
+        RoundBrackets
     }
 }

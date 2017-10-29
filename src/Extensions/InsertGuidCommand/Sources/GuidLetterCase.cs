@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,37 +21,23 @@
 
 #region Using Directives
 
-using System.Collections.Generic;
+using System;
+using VSEssentials.Common;
 
 #endregion
 
-namespace VSEssentials.CommentFormatter
+namespace VSEssentials.InsertGuidCommand
 {
-    internal static class Empty
+    public enum GuidLetterCase
     {
-        #region Singleton Class
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidLetterCaseLowerDescription)]
+        Lower,
 
-        private sealed class Instance<T>
-        {
-            public static readonly T[] Array = new T[0];
-            public static readonly IList<T> List = new List<T>().AsReadOnly();
-            static Instance() { }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public static T[] Array<T>()
-        {
-            return Instance<T>.Array;
-        }
-
-        public static IList<T> List<T>()
-        {
-            return Instance<T>.List;
-        }
-
-        #endregion
+        [LocalizableDescription(
+            LocalizationProvider = typeof(InsertGuidCommandLocalizationProvider),
+            ResourceName = InsertGuidCommandLocalizedResourceNames.GuidLetterCaseUpperDescription)]
+        Upper
     }
 }

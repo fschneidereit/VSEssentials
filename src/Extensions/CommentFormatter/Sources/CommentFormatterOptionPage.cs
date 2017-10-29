@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2015-2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -32,33 +32,55 @@ namespace VSEssentials.CommentFormatter
 {
     public class CommentFormatterOptionPage : DialogPage
     {
+        #region Constants
+
+        public const String CategoryName = "Extensions";
+        public const String PageName = @"VSEssentials\Comment Formatter";
+
+        #endregion
+
         #region Properties
 
         [Category("Behavior")]
-        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.FadeDocumentationTagsDisplayName)]
-        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.FadeDocumentationTagsDescription)]
+        [LocalizableDisplayName(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.FadeDocumentationTagsOptionDisplayName)]
+        [LocalizableDescription(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.FadeDocumentationTagsOptionDescription)]
         [DefaultValue(true)]
+        [TypeConverter(typeof(BooleanOptionConverter))]
         public Boolean FadeDocumentationTags {
-            get { return CommentFormatterOptions.Current.FadeDocumentationTags; }
-            set { CommentFormatterOptions.Current.FadeDocumentationTags = value; }
+            get { return CommentFormatterOptions.Instance.FadeDocumentationTags; }
+            set { CommentFormatterOptions.Instance.FadeDocumentationTags = value; }
         }
 
         [Category("Behavior")]
-        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeCommentsDisplayName)]
-        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeCommentsDescription)]
+        [LocalizableDisplayName(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.ItalicizeCommentsOptionDisplayName)]
+        [LocalizableDescription(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.ItalicizeCommentsOptionDescription)]
         [DefaultValue(false)]
+        [TypeConverter(typeof(BooleanOptionConverter))]
         public Boolean ItalicizeComments {
-            get { return CommentFormatterOptions.Current.ItalicizeComments; }
-            set { CommentFormatterOptions.Current.ItalicizeComments = value; }
+            get { return CommentFormatterOptions.Instance.ItalicizeComments; }
+            set { CommentFormatterOptions.Instance.ItalicizeComments = value; }
         }
 
         [Category("Behavior")]
-        [LocalizableDisplayName(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeDocumentationCommentsDisplayName)]
-        [LocalizableDescription(LocalizationProvider = typeof(LocalLocalizationProvider), ResourceName = LocalLocalizationResourceNames.ItalicizeDocumentationCommentsDescription)]
+        [LocalizableDisplayName(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.ItalicizeDocumentationCommentsOptionDisplayName)]
+        [LocalizableDescription(
+            LocalizationProvider = typeof(CommentFormatterLocalizationProvider),
+            ResourceName = CommentFormatterLocalizedResourceNames.ItalicizeDocumentationCommentsOptionDescription)]
         [DefaultValue(true)]
+        [TypeConverter(typeof(BooleanOptionConverter))]
         public Boolean ItalicizeDocumentationComments {
-            get { return CommentFormatterOptions.Current.ItalicizeDocumentationComments; }
-            set { CommentFormatterOptions.Current.ItalicizeDocumentationComments = value; }
+            get { return CommentFormatterOptions.Instance.ItalicizeDocumentationComments; }
+            set { CommentFormatterOptions.Instance.ItalicizeDocumentationComments = value; }
         }
 
         #endregion

@@ -45,6 +45,6 @@ using System.Runtime.InteropServices;
 
 #region Attributes: Localization
 
-[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
+[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
 #endregion

@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2017 Florian Schneidereit
+ *  Copyright © 2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -23,33 +23,30 @@
 
 using System;
 using System.ComponentModel;
-using System.ComponentModel.Composition;
 
 #endregion
 
-namespace VSEssentials.CommentFormatter
+namespace VSEssentials.InsertGuidCommand
 {
-    internal sealed class CommentFormatterOptions : INotifyPropertyChanged
+    internal sealed class InsertGuidCommandOptions : INotifyPropertyChanged
     {
         #region Fields
 
-        private static readonly Lazy<CommentFormatterOptions> _instance =
-            new Lazy<CommentFormatterOptions>(CreateInstance);
+        private static readonly Lazy<InsertGuidCommandOptions> _instance =
+            new Lazy<InsertGuidCommandOptions>(CreateInstance);
 
-        private Boolean _fadeDocumentationTags;
-        private Boolean _italicizeComments;
-        private Boolean _italicizeDocumentationComments;
+        private GuidLetterCase _guidLetterCase;
+        private GuidParenthesis _guidParenthesis;
 
         #endregion
 
         #region Constructors
 
-        private CommentFormatterOptions()
+        private InsertGuidCommandOptions()
         {
             // Instance initialization
-            _fadeDocumentationTags = true;
-            _italicizeComments = false;
-            _italicizeDocumentationComments = true;
+            _guidLetterCase = GuidLetterCase.Lower;
+            _guidParenthesis = GuidParenthesis.None;
         }
 
         #endregion
@@ -62,47 +59,37 @@ namespace VSEssentials.CommentFormatter
 
         #region Properties
 
-        public Boolean FadeDocumentationTags {
-            get { return _fadeDocumentationTags; }
+        public GuidLetterCase GuidLetterCase {
+            get { return _guidLetterCase; }
             set {
-                if (_fadeDocumentationTags != value) {
-                    _fadeDocumentationTags = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(FadeDocumentationTags)));
+                if (_guidLetterCase != value) {
+                    _guidLetterCase = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(GuidLetterCase)));
                 }
             }
         }
 
-        public static CommentFormatterOptions Instance {
+        public GuidParenthesis GuidParenthesis {
+            get { return _guidParenthesis; }
+            set {
+                if (_guidParenthesis != value) {
+                    _guidParenthesis = value;
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(GuidParenthesis)));
+                }
+            }
+        }
+
+        public static InsertGuidCommandOptions Instance {
             get { return _instance.Value; }
-        }
-
-        public Boolean ItalicizeComments {
-            get { return _italicizeComments; }
-            set {
-                if (_italicizeComments != value) {
-                    _italicizeComments = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ItalicizeComments)));
-                }
-            }
-        }
-
-        public Boolean ItalicizeDocumentationComments {
-            get { return _italicizeDocumentationComments; }
-            set {
-                if (_italicizeDocumentationComments != value) {
-                    _italicizeDocumentationComments = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(ItalicizeDocumentationComments)));
-                }
-            }
         }
 
         #endregion
 
         #region Methods
 
-        private static CommentFormatterOptions CreateInstance()
+        private static InsertGuidCommandOptions CreateInstance()
         {
-            return new CommentFormatterOptions();
+            return new InsertGuidCommandOptions();
         }
 
         private void OnPropertyChanged(PropertyChangedEventArgs e)

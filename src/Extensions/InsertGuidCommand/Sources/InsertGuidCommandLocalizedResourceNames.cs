@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2017 Florian Schneidereit
+ *  Copyright © 2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -21,24 +21,29 @@
 
 #region Using Directives
 
-using Microsoft.VisualStudio.Shell;
 using System;
-using System.Runtime.InteropServices;
 
 #endregion
 
-namespace VSEssentials.CommentFormatter
+namespace VSEssentials.InsertGuidCommand
 {
-    [InstalledProductRegistration("#110", "#112", ProductVersion, IconResourceID = 400)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [ProvideOptionPage(typeof(CommentFormatterOptionPage), CommentFormatterOptionPage.CategoryName, CommentFormatterOptionPage.PageName, 120, 130, false)]
-    [Guid(CommentFormatterGuids.Package)]
-    internal sealed class CommentFormatterPackage : Package
+    internal static class InsertGuidCommandLocalizedResourceNames
     {
         #region Constants
 
-        public const String ProductVersion = "2017.0.1";
+        public const String GuidLetterCaseOptionDisplayName = nameof(GuidLetterCaseOptionDisplayName);
+        public const String GuidLetterCaseOptionDescription = nameof(GuidLetterCaseOptionDescription);
+        public const String GuidParenthesisOptionDisplayName = nameof(GuidParenthesisOptionDisplayName);
+        public const String GuidParenthesisOptionDescription = nameof(GuidParenthesisOptionDescription);
 
+        public const String GuidLetterCaseLowerDescription = nameof(GuidLetterCaseLowerDescription);
+        public const String GuidLetterCaseUpperDescription = nameof(GuidLetterCaseUpperDescription);
+
+        public const String GuidParenthesisNoneDescription = nameof(GuidParenthesisNoneDescription);
+        public const String GuidParenthesisCurlyBracketsDescription = nameof(GuidParenthesisCurlyBracketsDescription);
+        public const String GuidParenthesisSquareBracketsDescription = nameof(GuidParenthesisSquareBracketsDescription);
+        public const String GuidParenthesisAngleBracketsDescription = nameof(GuidParenthesisAngleBracketsDescription);
+        public const String GuidParenthesisRoundBracketsDescription = nameof(GuidParenthesisRoundBracketsDescription);
         #endregion
     }
 }

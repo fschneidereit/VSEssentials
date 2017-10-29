@@ -52,6 +52,9 @@
     <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
     <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,6 +76,7 @@
     <Compile Include="..\..\Shared\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Sources\BooleanOptionConverter.cs" />
     <Compile Include="Sources\MultiLineCommentFormatDefinition.cs" />
     <Compile Include="Sources\MultiLineCommentTagger.cs" />
     <Compile Include="Sources\MultiLineCommentTaggerContext.cs" />
@@ -88,10 +92,9 @@
     <Compile Include="Sources\CommentFormatterPackage.cs" />
     <Compile Include="Sources\CommentFormatterOptions.cs" />
     <Compile Include="Sources\ContentTypeNames.cs" />
-    <Compile Include="Sources\Empty.cs" />
     <Compile Include="Sources\KnownClassificationTypeNames.cs" />
-    <Compile Include="Sources\LocalLocalizationProvider.cs" />
-    <Compile Include="Sources\LocalLocalizationResourceNames.cs" />
+    <Compile Include="Sources\CommentFormatterLocalizationProvider.cs" />
+    <Compile Include="Sources\CommentFormatterLocalizedResourceNames.cs" />
     <Compile Include="Sources\TextViewCreationListener.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -376,18 +379,19 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExtensionResources.de-DE.resx">
       <LogicalName>ExtensionResources.de-DE.Resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ExtensionResources.resx">
-      <LogicalName>ExtensionResources.Resources</LogicalName>
+    <EmbeddedResource Include="Resources\ExtensionResources.en-US.resx">
+      <LogicalName>ExtensionResources.en-US.Resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\VSPackage.de-DE.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.de-DE.Resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\VSPackage.resx">
+    <EmbeddedResource Include="Resources\VSPackage.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
-      <LogicalName>VSPackage.Resources</LogicalName>
-      <SubType>Designer</SubType>
+      <LogicalName>VSPackage.en-US.Resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

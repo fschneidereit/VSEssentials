@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2015-2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -54,7 +54,7 @@ namespace VSEssentials.CommentFormatter
             InvalidateFormatting();
 
             // Subscribe to events
-            CommentFormatterOptions.Current.PropertyChanged += Options_PropertyChanged;
+            CommentFormatterOptions.Instance.PropertyChanged += Options_PropertyChanged;
             FormatMap.ClassificationFormatMappingChanged += FormatMap_ClassificationFormatMappingChanged;
             TextView.GotAggregateFocus += TextView_GotAggregateFocus;
             TextView.Closed += TextView_Closed;
@@ -111,7 +111,7 @@ namespace VSEssentials.CommentFormatter
                 foreach (String name in KnownClassificationTypeNames.Comments) {
                     IClassificationType ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
-                        if (CommentFormatterOptions.Current.ItalicizeComments) {
+                        if (CommentFormatterOptions.Instance.ItalicizeComments) {
                             ClassificationFormatter.Italicize(FormatMap, ct);
                         } else {
                             ClassificationFormatter.Normalize(FormatMap, ct);
@@ -150,7 +150,7 @@ namespace VSEssentials.CommentFormatter
                 foreach (String name in KnownClassificationTypeNames.DocumentationComments) {
                     IClassificationType ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
-                        if (CommentFormatterOptions.Current.ItalicizeDocumentationComments) {
+                        if (CommentFormatterOptions.Instance.ItalicizeDocumentationComments) {
                             ClassificationFormatter.Italicize(FormatMap, ct);
                         } else {
                             ClassificationFormatter.Normalize(FormatMap, ct);
@@ -189,7 +189,7 @@ namespace VSEssentials.CommentFormatter
                 foreach (String name in KnownClassificationTypeNames.DocumentationTags) {
                     IClassificationType ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
-                        if (CommentFormatterOptions.Current.FadeDocumentationTags) {
+                        if (CommentFormatterOptions.Instance.FadeDocumentationTags) {
                             ClassificationFormatter.Fade(FormatMap, ct);
                         } else {
                             ClassificationFormatter.Sharpen(FormatMap, ct);
@@ -260,7 +260,7 @@ namespace VSEssentials.CommentFormatter
                 FormatMap.ClassificationFormatMappingChanged -= FormatMap_ClassificationFormatMappingChanged;
             }
 
-            CommentFormatterOptions.Current.PropertyChanged -= Options_PropertyChanged;
+            CommentFormatterOptions.Instance.PropertyChanged -= Options_PropertyChanged;
         }
 
         private void TextView_GotAggregateFocus(Object sender, EventArgs e)

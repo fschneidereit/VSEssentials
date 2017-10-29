@@ -121,9 +121,12 @@
     <value>Insert GUID Command</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Bietet die Möglichkeit zum schnellen Einfügen einer GUID im Text-Editor.</value>
+    <value>Bietet Befehle zum schnellen und wiederholbarem Einfügen von GUIDs im Text-Editor.</value>
   </data>
   <data name="120" xml:space="preserve">
-    <value>VSEssentials</value>
+    <value>Erweiterungen</value>
+  </data>
+  <data name="130" xml:space="preserve">
+    <value>Insert GUID Command</value>
   </data>
 </root>

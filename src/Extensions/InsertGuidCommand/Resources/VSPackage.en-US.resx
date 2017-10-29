@@ -121,10 +121,13 @@
     <value>Insert GUID Command</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Provides quick insertion of a GUID in the text editor.</value>
+    <value>Provides commands to quickly insert GUIDs in the text editor.</value>
   </data>
   <data name="120" xml:space="preserve">
-    <value>VSEssentials</value>
+    <value>Extensions</value>
+  </data>
+  <data name="130" xml:space="preserve">
+    <value>Insert GUID Command</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

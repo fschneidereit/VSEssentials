@@ -21,48 +21,27 @@
 
 #region Using Directives
 
-using VSEssentials.Common;
 using System;
-using System.Reflection;
 
 #endregion
 
 namespace VSEssentials.CommentFormatter
 {
-    internal sealed class LocalLocalizationProvider : LocalizationProvider
+    internal static class CommentFormatterLocalizedResourceNames
     {
-        #region Nested Singleton Class
+        #region Constants
 
-        private sealed class Singleton
-        {
-            public static readonly LocalLocalizationProvider Instance = new LocalLocalizationProvider();
-            static Singleton() { }
-        }
+        public const String FadeDocumentationTagsOptionDisplayName = nameof(FadeDocumentationTagsOptionDisplayName);
+        public const String FadeDocumentationTagsOptionDescription = nameof(FadeDocumentationTagsOptionDescription);
+        public const String ItalicizeCommentsOptionDisplayName = nameof(ItalicizeCommentsOptionDisplayName);
+        public const String ItalicizeCommentsOptionDescription = nameof(ItalicizeCommentsOptionDescription);
+        public const String ItalicizeDocumentationCommentsOptionDisplayName = nameof(ItalicizeDocumentationCommentsOptionDisplayName);
+        public const String ItalicizeDocumentationCommentsOptionDescription = nameof(ItalicizeDocumentationCommentsOptionDescription);
 
-        #endregion
+        public const String MultiLineCommentFormatDefinitionDisplayName = nameof(MultiLineCommentFormatDefinitionDisplayName);
 
-        #region Constructors
-
-        public LocalLocalizationProvider() : base(Assembly.GetExecutingAssembly())
-        {
-        }
-
-        #endregion
-
-        #region Properties: Static
-
-        public static LocalLocalizationProvider Current {
-            get { return Singleton.Instance; }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public String GetString(String resourceName)
-        {
-            return ResourceManager.GetString(resourceName);
-        }
+        public const String YesString = nameof(YesString);
+        public const String NoString = nameof(NoString);
 
         #endregion
     }

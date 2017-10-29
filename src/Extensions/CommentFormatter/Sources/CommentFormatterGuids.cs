@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2015-2017 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -27,11 +27,11 @@ using System;
 
 namespace VSEssentials.CommentFormatter
 {
-    static class CommentFormatterGuids
+    internal static class CommentFormatterGuids
     {
         #region Constants
 
-        internal const String Package = "1b1a4126-2351-4b34-a1af-363bcc165f4e";
+        public const String Package = "1b1a4126-2351-4b34-a1af-363bcc165f4e";
 
         #endregion
     }
