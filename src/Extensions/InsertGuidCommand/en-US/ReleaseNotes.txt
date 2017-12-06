@@ -1,4 +1,8 @@
-﻿[Version 2017.1.0]
+﻿[Version 2017.1.1]
+- Fixed an issue that caused the "Insert new GUID" and "Insert last GUID" commands to disappear
+  after they were invoked for the first time
+
+[Version 2017.1.0]
 - New extension icon
 - Added "Insert last GUID" command to re-insert the latest new GUID
 - Added GUID letter casing option
