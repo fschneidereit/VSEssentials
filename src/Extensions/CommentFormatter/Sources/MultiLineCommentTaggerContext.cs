@@ -92,8 +92,8 @@ namespace VSEssentials.CommentFormatter
         public static async Task<MultiLineCommentTaggerContext> CreateAsync(ITextSnapshot snapshot)
         {
             var document = snapshot.GetOpenDocumentInCurrentContextWithChanges();
-            var semanticModel = await document.GetSemanticModelAsync();
-            var syntaxRoot = await document.GetSyntaxRootAsync();
+            var semanticModel = await document.GetSemanticModelAsync().ConfigureAwait(false);
+            var syntaxRoot = await document.GetSyntaxRootAsync().ConfigureAwait(false);
 
             return new MultiLineCommentTaggerContext(document, semanticModel, syntaxRoot, snapshot);
         }

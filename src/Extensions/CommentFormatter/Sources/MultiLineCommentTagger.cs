@@ -75,19 +75,26 @@ namespace VSEssentials.CommentFormatter
         public IEnumerable<ITagSpan<IClassificationTag>> GetTags(
             NormalizedSnapshotSpanCollection spans)
         {
+            // Break if there are no spans
             if (spans.Count == 0) {
                 yield break;
             }
 
+            // Get text snapshot of the first span
             var snapshot = spans[0].Snapshot;
 
             if (_context.IsEmpty || _context.Snapshot != snapshot) {
                 var task = MultiLineCommentTaggerContext.CreateAsync(snapshot);
-                task.Wait();
-                if (task.IsFaulted) {
+                try {
+                    task.Wait();
+                    if (task.IsFaulted) {
+                        yield break;
+                    }
+                    _context = task.Result;
+                } catch {
+                    _context = MultiLineCommentTaggerContext.Empty;
                     yield break;
                 }
-                _context = task.Result;
             }
 
             var comments = GetCommentsInSnapshotSpan(spans[0]);
