@@ -1,4 +1,8 @@
-﻿[Version 2017.1.0]
+﻿[Version 2017.1.1]
+- Optimized the multi-line tagger implementation to prevent and capture potential issues during
+  creation of the underlying context
+
+[Version 2017.1.0]
 - New extension icon
 - Moved option page into "Extensions\VSEssential" category
 - Localization optimizations
