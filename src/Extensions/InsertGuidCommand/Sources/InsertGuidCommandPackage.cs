@@ -44,7 +44,7 @@ namespace VSEssentials.InsertGuidCommand
     {
         #region Constants
 
-        public const String ProductVersion = "2017.11.0";
+        public const String ProductVersion = "2017.1.1";
 
         #endregion
 
@@ -110,9 +110,15 @@ namespace VSEssentials.InsertGuidCommand
 
         #endregion
 
-        #region Methods: Static
+        #region Methods: Implementation
 
-        public static ITextView GetCurrentTextView()
+        internal static void InitializeCommandStates()
+        {
+            InsertNewGuidCommand.Instance.IsVisible = true;
+            InsertLastGuidCommand.Instance.IsVisible = true;
+        }
+
+        internal static ITextView GetCurrentTextView()
         {
             if (GetGlobalService(typeof(SComponentModel)) is IComponentModel componentModel) {
                 var editorAdapter = componentModel.GetService<IVsEditorAdaptersFactoryService>();

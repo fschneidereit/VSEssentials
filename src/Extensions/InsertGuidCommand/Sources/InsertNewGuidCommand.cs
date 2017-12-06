@@ -44,6 +44,7 @@ namespace VSEssentials.InsertGuidCommand
 
         private readonly CommandID _commandID;
         private readonly OleMenuCommand _menuCommand;
+        private Boolean _firstInvoke;
         private Boolean _visible;
 
         #endregion
@@ -55,6 +56,7 @@ namespace VSEssentials.InsertGuidCommand
             // Instance initialization
             _commandID = new CommandID(new Guid(InsertGuidCommandGuids.MenuGroup), CommandID);
             _menuCommand = new OleMenuCommand(Invoke, null, BeforeQueryStatus, _commandID);
+            _firstInvoke = true;
             _visible = false;
         }
 
@@ -77,6 +79,15 @@ namespace VSEssentials.InsertGuidCommand
 
         #endregion
 
+        #region Properties: Internal
+
+        internal Boolean IsFirstInvoke {
+            get { return _firstInvoke; }
+            private set { _firstInvoke = value; }
+        }
+
+        #endregion
+
         #region Methods
 
         private void BeforeQueryStatus(Object sender, EventArgs e)
@@ -93,6 +104,13 @@ namespace VSEssentials.InsertGuidCommand
 
         private void Invoke(Object sender, EventArgs e)
         {
+            // Initialization on first invocation
+            if (IsFirstInvoke) {
+                IsFirstInvoke = false;
+                InsertGuidCommandPackage.InitializeCommandStates();
+            }
+
+            // Create new GUID
             var guid = Guid.NewGuid();
 
             // Get current text view
