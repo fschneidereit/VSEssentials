@@ -31,6 +31,7 @@ The configuration of the formatting of multiline comments can be found in the "F
 
 #### Compatibility ####
 - Visual&nbsp;Studio&reg; 2015 (all Editions)
+- Visual&nbsp;Studio&reg; 2017 (all Editions) until version 15.7
 
 ### Document Insights ###
 The **Document Insights** extension displays additional document information in a margin at the bottom of the text editor. This includes more detailed information about lines and characters: first, the actual (current) count, followed by the original (source) count in angle brackets, and the difference in round brackets at the end.
