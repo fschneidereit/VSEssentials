@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2017 Florian Schneidereit
+ *  Copyright © 2015-2018 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -34,7 +34,7 @@ namespace VSEssentials.CommentFormatter
     [Export(typeof(EditorFormatDefinition))]
     [ClassificationType(ClassificationTypeNames = ClassificationTypeNames.MultiLineComment)]
     [Name(ClassificationTypeNames.MultiLineComment)]
-    [Order(After = Priority.High, Before = Priority.Default)]
+    [Order(After = Priority.High, Before = Priority.High)]
     [UserVisible(true)]
     internal sealed class MultiLineCommentFormatDefinition : ClassificationFormatDefinition
     {

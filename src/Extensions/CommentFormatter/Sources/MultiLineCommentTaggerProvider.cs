@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2015-2018 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -52,7 +52,7 @@ namespace VSEssentials.CommentFormatter
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer) where T : ITag
         {
             return (ITagger<T>)buffer.Properties.GetOrCreateSingletonProperty(
-                () => new MultiLineCommentTagger(Workspace, ClassificationTypeRegistry));
+                () => new MultiLineCommentTagger(buffer, Workspace, ClassificationTypeRegistry));
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2017 Florian Schneidereit
+ *  Copyright © 2015-2018 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -25,6 +25,7 @@ using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 using System;
 using System.ComponentModel;
+using System.Threading;
 
 #endregion
 
@@ -34,7 +35,6 @@ namespace VSEssentials.CommentFormatter
     {
         #region Fields
 
-        private Boolean _formatting;
         private readonly IClassificationFormatMap _formatMap;
         private readonly IWpfTextView _textView;
         private readonly IClassificationTypeRegistryService _typeRegistry;
@@ -43,15 +43,15 @@ namespace VSEssentials.CommentFormatter
 
         #region Constructors
 
-        internal CommentFormatter(IClassificationFormatMap formatMap, IWpfTextView textView, IClassificationTypeRegistryService typeRegistryService)
+        internal CommentFormatter(
+            IClassificationFormatMap formatMap,
+            IWpfTextView textView,
+            IClassificationTypeRegistryService typeRegistryService)
         {
             // Initialize instance fields
             _formatMap = formatMap;
             _textView = textView;
             _typeRegistry = typeRegistryService;
-
-            // Initial formatting
-            InvalidateFormatting();
 
             // Subscribe to events
             CommentFormatterOptions.Instance.PropertyChanged += Options_PropertyChanged;
@@ -64,24 +64,15 @@ namespace VSEssentials.CommentFormatter
 
         #region Properties
 
-        Boolean CanFormat {
-            get { return !IsFormatting || FormatMap != null || (TextView != null && !TextView.IsClosed); }
-        }
-
-        IClassificationFormatMap FormatMap {
+        internal IClassificationFormatMap FormatMap {
             get { return _formatMap; }
         }
 
-        Boolean IsFormatting {
-            get { return _formatting; }
-            set { _formatting = value; }
-        }
-
-        IWpfTextView TextView {
+        internal IWpfTextView TextView {
             get { return _textView; }
         }
 
-        IClassificationTypeRegistryService TypeRegistryService {
+        internal IClassificationTypeRegistryService TypeRegistryService {
             get { return _typeRegistry; }
         }
 
@@ -89,28 +80,17 @@ namespace VSEssentials.CommentFormatter
 
         #region Methods
 
-        void FormatComments()
+        private void InvalidateFormatting(CommentFormatterActions actions)
         {
-            // Validate state
-            if (!CanFormat) {
-                return;
-            }
-
-            Boolean batchUpdate = false;
-
-            try {
-                // Begin formatting
-                IsFormatting = true;
-
-                if (!FormatMap.IsInBatchUpdate) {
-                    batchUpdate = true;
-                    FormatMap.BeginBatchUpdate();
-                }
-
-                // Process comments
-                foreach (String name in KnownClassificationTypeNames.Comments) {
-                    IClassificationType ct = TypeRegistryService.GetClassificationType(name);
+            // Format ordinary comments
+            if ((actions & CommentFormatterActions.FormatComments) ==
+                CommentFormatterActions.FormatComments) {
+                // Get classification type name for comments
+                foreach (var name in KnownClassificationTypeNames.Comments) {
+                    // Get the corresponding classification type
+                    var ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
+                        // Format
                         if (CommentFormatterOptions.Instance.ItalicizeComments) {
                             ClassificationFormatter.Italicize(FormatMap, ct);
                         } else {
@@ -118,38 +98,17 @@ namespace VSEssentials.CommentFormatter
                         }
                     }
                 }
-            } finally {
-                // End formatting
-                if (batchUpdate && FormatMap.IsInBatchUpdate) {
-                    FormatMap.EndBatchUpdate();
-                }
-
-                IsFormatting = false;
-            }
-        }
-
-        void FormatDocumentationComments()
-        {
-            // Validate state
-            if (!CanFormat) {
-                return;
             }
 
-            Boolean batchUpdate = false;
-
-            try {
-                // Begin formatting
-                IsFormatting = true;
-
-                if (!FormatMap.IsInBatchUpdate) {
-                    batchUpdate = true;
-                    FormatMap.BeginBatchUpdate();
-                }
-
-                // Process documentation comments
-                foreach (String name in KnownClassificationTypeNames.DocumentationComments) {
-                    IClassificationType ct = TypeRegistryService.GetClassificationType(name);
+            // Format documentation comments
+            if ((actions & CommentFormatterActions.FormatDocumentationComments) ==
+                CommentFormatterActions.FormatDocumentationComments) {
+                // Get classification type name for documentation comments
+                foreach (var name in KnownClassificationTypeNames.DocumentationComments) {
+                    // Get the corresponding classification type
+                    var ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
+                        // Format
                         if (CommentFormatterOptions.Instance.ItalicizeDocumentationComments) {
                             ClassificationFormatter.Italicize(FormatMap, ct);
                         } else {
@@ -157,38 +116,17 @@ namespace VSEssentials.CommentFormatter
                         }
                     }
                 }
-            } finally {
-                // End formatting
-                if (batchUpdate && FormatMap.IsInBatchUpdate) {
-                    FormatMap.EndBatchUpdate();
-                }
-
-                IsFormatting = false;
-            }
-        }
-
-        void FormatDocumentationTags()
-        {
-            // Validate state
-            if (!CanFormat) {
-                return;
             }
 
-            Boolean batchUpdate = false;
-
-            try {
-                // Begin formatting
-                IsFormatting = true;
-
-                if (!FormatMap.IsInBatchUpdate) {
-                    batchUpdate = true;
-                    FormatMap.BeginBatchUpdate();
-                }
-
-                // Process documentation tags
-                foreach (String name in KnownClassificationTypeNames.DocumentationTags) {
-                    IClassificationType ct = TypeRegistryService.GetClassificationType(name);
+            // Format documentation tags
+            if ((actions & CommentFormatterActions.FormatDocumentationTags) ==
+                CommentFormatterActions.FormatDocumentationTags) {
+                // Get classification type name for documentation tags
+                foreach (var name in KnownClassificationTypeNames.DocumentationTags) {
+                    // Get the corresponding classification type
+                    var ct = TypeRegistryService.GetClassificationType(name);
                     if (ct != null) {
+                        // Format
                         if (CommentFormatterOptions.Instance.FadeDocumentationTags) {
                             ClassificationFormatter.Fade(FormatMap, ct);
                         } else {
@@ -196,22 +134,7 @@ namespace VSEssentials.CommentFormatter
                         }
                     }
                 }
-            } finally {
-                // End formatting
-                if (batchUpdate && FormatMap.IsInBatchUpdate) {
-                    FormatMap.EndBatchUpdate();
-                }
-
-                IsFormatting = false;
             }
-        }
-
-        void InvalidateFormatting()
-        {
-            // Perform all formattings
-            FormatComments();
-            FormatDocumentationComments();
-            FormatDocumentationTags();
         }
 
         #endregion
@@ -220,57 +143,60 @@ namespace VSEssentials.CommentFormatter
 
         private void FormatMap_ClassificationFormatMappingChanged(Object sender, EventArgs e)
         {
-            // Invalidate formatting on classification map change
-            InvalidateFormatting();
+            // Invalidate formatting on format map changes
+            InvalidateFormatting(CommentFormatterActions.All);
         }
 
         private void Options_PropertyChanged(Object sender, PropertyChangedEventArgs e)
         {
-            // Validate event arguments
+            // Validate arguments
             if (e == null) {
-                // Invalidate formatting if no arguments are provided
-                InvalidateFormatting();
+                return;
             }
 
+            // Update formatting depending on the property changed
             switch (e.PropertyName) {
                 case nameof(CommentFormatterOptions.ItalicizeComments):
-                    FormatComments();
+                    InvalidateFormatting(CommentFormatterActions.FormatComments);
                     break;
                 case nameof(CommentFormatterOptions.ItalicizeDocumentationComments):
-                    FormatDocumentationComments();
+                    InvalidateFormatting(CommentFormatterActions.FormatDocumentationComments);
                     break;
                 case nameof(CommentFormatterOptions.FadeDocumentationTags):
-                    FormatDocumentationTags();
+                    InvalidateFormatting(CommentFormatterActions.FormatDocumentationTags);
                     break;
                 default:
-                    // Invalidate formatting by default
-                    InvalidateFormatting();
+                    InvalidateFormatting(CommentFormatterActions.All);
                     break;
             }
         }
 
         private void TextView_Closed(Object sender, EventArgs e)
         {
+            // Remove text view event handlers
             if (TextView != null) {
                 TextView.Closed -= TextView_Closed;
                 TextView.GotAggregateFocus -= TextView_GotAggregateFocus;
             }
 
+            // Remove format map event handlers
             if (FormatMap != null) {
                 FormatMap.ClassificationFormatMappingChanged -= FormatMap_ClassificationFormatMappingChanged;
             }
 
+            // Remove options event handler
             CommentFormatterOptions.Instance.PropertyChanged -= Options_PropertyChanged;
         }
 
         private void TextView_GotAggregateFocus(Object sender, EventArgs e)
         {
+            // Remove aggregate focus event handler
             if (TextView != null) {
                 TextView.GotAggregateFocus -= TextView_GotAggregateFocus;
             }
 
             // Invalidate formatting on getting aggregate focus
-            InvalidateFormatting();
+            InvalidateFormatting(CommentFormatterActions.All);
         }
 
         #endregion

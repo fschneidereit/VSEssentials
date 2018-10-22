@@ -27,13 +27,13 @@ using System;
 
 namespace VSEssentials.CommentFormatter
 {
-    internal static class ContentTypes
+    [Flags]
+    internal enum CommentFormatterActions
     {
-        #region Constants
-
-        public const String CSharp = nameof(CSharp);
-        public const String Basic = nameof(Basic);
-
-        #endregion
+        None,
+        FormatComments,
+        FormatDocumentationComments,
+        FormatDocumentationTags,
+        All = FormatComments | FormatDocumentationComments | FormatDocumentationTags
     }
 }

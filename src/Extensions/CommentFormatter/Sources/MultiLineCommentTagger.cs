@@ -1,6 +1,6 @@
 ﻿/***************************************************************************************************
  *
- *  Copyright © 2015-2016 Florian Schneidereit
+ *  Copyright © 2015-2018 Florian Schneidereit
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  *  and associated documentation files (the "Software"), to deal in the Software without
@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.Text;
-using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
@@ -42,6 +41,7 @@ namespace VSEssentials.CommentFormatter
 
         private MultiLineCommentTaggerContext _context;
         private readonly IClassificationType _multiLineCommentType;
+        private readonly ITextBuffer _textBuffer;
         private readonly Workspace _workspace;
 
         #endregion
@@ -49,6 +49,7 @@ namespace VSEssentials.CommentFormatter
         #region Constructors
 
         public MultiLineCommentTagger(
+            ITextBuffer textBuffer,
             Workspace workspace,
             IClassificationTypeRegistryService classificationTypeRegistry)
         {
@@ -57,6 +58,7 @@ namespace VSEssentials.CommentFormatter
             _multiLineCommentType =
                 classificationTypeRegistry.GetClassificationType(
                     ClassificationTypeNames.MultiLineComment);
+            _textBuffer = textBuffer;
             _workspace = workspace;
         }
 
@@ -128,18 +130,27 @@ namespace VSEssentials.CommentFormatter
 
         private IEnumerable<ClassifiedSpan> GetCommentsInSnapshotSpan(SnapshotSpan span)
         {
+            // Check if the span is empty
+            if (span.IsEmpty) {
+                yield break;
+            }
+
             // Get classified spans
             var textSpan = TextSpan.FromBounds(span.Start, span.End);
             var classifiedSpans =
                 Classifier.GetClassifiedSpans(_context.SemanticModel, textSpan, _workspace);
 
-            // Filter identifiers
-            foreach (var classifiedSpan in classifiedSpans) {
-                if (classifiedSpan.ClassificationType.Equals(
-                    KnownClassificationTypeNames.Comment,
-                    StringComparison.InvariantCultureIgnoreCase)) {
-                    yield return classifiedSpan;
+            if (classifiedSpans != null) {
+                // Filter identifiers
+                foreach (var classifiedSpan in classifiedSpans) {
+                    if (classifiedSpan.ClassificationType.Equals(
+                        KnownClassificationTypeNames.Comment,
+                        StringComparison.InvariantCultureIgnoreCase)) {
+                        yield return classifiedSpan;
+                    }
                 }
+            } else {
+                yield break;
             }
         }
 
