@@ -37,7 +37,7 @@ namespace VSEssentials.CommentFormatter
     {
         #region Constants
 
-        public const String ProductVersion = "2017.1.1";
+        public const String ProductVersion = "2018.0.0";
 
         #endregion
     }
