@@ -29,7 +29,7 @@ using System.Reflection;
 
 [assembly: AssemblyProduct("VSEssentials")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("© 2015-2017 Florian Schneidereit")]
+[assembly: AssemblyCopyright("© 2015-2019 Florian Schneidereit")]
 [assembly: AssemblyTrademark("")]
 
 #endregion

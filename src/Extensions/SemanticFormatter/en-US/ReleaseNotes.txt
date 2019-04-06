@@ -1,4 +1,7 @@
-﻿[Version 2017.0.1]
+﻿[Version 2019.0.0]
+- Added support for Visual Studio 2019
+
+[Version 2017.0.1]
 - Migration to Visual Studio 2017
 
 [Version 1.0.0]

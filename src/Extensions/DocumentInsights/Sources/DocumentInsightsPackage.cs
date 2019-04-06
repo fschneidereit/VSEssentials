@@ -37,7 +37,7 @@ namespace VSEssentials.DocumentInsights
     {
         #region Constants
 
-        public const String ProductVersion = "2017.0.1";
+        public const String ProductVersion = "2019.0.0";
 
         #endregion
 

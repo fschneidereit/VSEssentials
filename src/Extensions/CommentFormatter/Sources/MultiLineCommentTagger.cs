@@ -26,9 +26,11 @@ using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.Text;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
+using Microsoft.VisualStudio.Threading;
 using CS = Microsoft.CodeAnalysis.CSharp;
 
 #endregion
@@ -86,13 +88,9 @@ namespace VSEssentials.CommentFormatter
             var snapshot = spans[0].Snapshot;
 
             if (_context.IsEmpty || _context.Snapshot != snapshot) {
-                var task = MultiLineCommentTaggerContext.CreateAsync(snapshot);
                 try {
-                    task.Wait();
-                    if (task.IsFaulted) {
-                        yield break;
-                    }
-                    _context = task.Result;
+                    _context = ThreadHelper.JoinableTaskFactory.Run(
+                        () => MultiLineCommentTaggerContext.CreateAsync(snapshot));
                 } catch {
                     _context = MultiLineCommentTaggerContext.Empty;
                     yield break;

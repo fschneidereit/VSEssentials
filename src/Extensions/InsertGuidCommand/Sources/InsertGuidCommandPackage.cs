@@ -44,7 +44,7 @@ namespace VSEssentials.InsertGuidCommand
     {
         #region Constants
 
-        public const String ProductVersion = "2017.1.1";
+        public const String ProductVersion = "2019.0.0";
 
         #endregion
 
@@ -65,6 +65,7 @@ namespace VSEssentials.InsertGuidCommand
 
         private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             InsertNewGuidCommand.Instance.IsVisible = GotFocus != null && GotFocus.Kind == "Document";
             InsertLastGuidCommand.Instance.IsVisible = InsertNewGuidCommand.Instance.IsVisible;
         }
@@ -93,6 +94,7 @@ namespace VSEssentials.InsertGuidCommand
         {
             base.Initialize();
 
+            ThreadHelper.ThrowIfNotOnUIThread();
             _commandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (_commandService != null) {
                 _commandService.AddCommand(InsertNewGuidCommand.Instance.MenuCommand);
@@ -120,6 +122,7 @@ namespace VSEssentials.InsertGuidCommand
 
         internal static ITextView GetCurrentTextView()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (GetGlobalService(typeof(SComponentModel)) is IComponentModel componentModel) {
                 var editorAdapter = componentModel.GetService<IVsEditorAdaptersFactoryService>();
                 if (editorAdapter != null) {

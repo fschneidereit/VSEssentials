@@ -112,6 +112,8 @@ namespace VSEssentials.InsertGuidCommand
 
         private void Invoke(Object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Initialization on first invocation
             if (IsFirstInvoke) {
                 IsFirstInvoke = false;

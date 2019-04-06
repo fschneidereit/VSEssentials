@@ -60,7 +60,8 @@ namespace VSEssentials.SemanticFormatter
 
         private OutputLogger()
         {
-            IVsOutputWindow outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             if (outputWindow != null) {
                 Guid paneGuid = new Guid(PaneGuid);
                 Int32 result = outputWindow.CreatePane(ref paneGuid, PaneTitle, 1, 0);
@@ -88,6 +89,7 @@ namespace VSEssentials.SemanticFormatter
 
         public void Write(String message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (_pane != null) {
                 _pane.OutputString(message);
             }
@@ -95,6 +97,7 @@ namespace VSEssentials.SemanticFormatter
 
         public void WriteLine(String message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Write(message + Environment.NewLine);
         }
 

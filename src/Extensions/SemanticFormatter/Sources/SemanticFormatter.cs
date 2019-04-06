@@ -27,6 +27,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Classification;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.LanguageServices;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
@@ -89,12 +90,13 @@ namespace VSEssentials.SemanticFormatter
             var snapshot = spans[0].Snapshot;
 
             if (_context.IsEmpty || _context.Snapshot != snapshot) {
-                var task = SemanticFormatterContext.CreateAsync(snapshot);
-                task.Wait();
-                if (task.IsFaulted) {
+                try {
+                    _context = ThreadHelper.JoinableTaskFactory.Run(
+                        () => SemanticFormatterContext.CreateAsync(snapshot));
+                } catch {
+                    _context = SemanticFormatterContext.Empty;
                     yield break;
                 }
-                _context = task.Result;
             }
 
             var identifiers = GetIdentifiersInSnapshotSpan(spans[0]);
@@ -136,10 +138,7 @@ namespace VSEssentials.SemanticFormatter
 
         private void OnTagsChanged(SnapshotSpanEventArgs e)
         {
-            var handler = TagsChanged;
-            if (handler != null) {
-                handler(this, e);
-            }
+            TagsChanged?.Invoke(this, e);
         }
 
         #endregion

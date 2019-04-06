@@ -1,4 +1,7 @@
-﻿[Version 2017.1.1]
+﻿[Version 2019.0.0]
+- Added support for Visual Studio 2019
+
+[Version 2017.1.1]
 - Fixed an issue that caused the "Insert new GUID" and "Insert last GUID" commands to disappear
   after they were invoked for the first time
 
