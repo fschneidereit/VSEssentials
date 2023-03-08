@@ -1,6 +1,7 @@
 # VSEssentials #
-----------------
 A free and open source collection of essential Visual&nbsp;Studio&reg; extensions and utilities developed and distributed by Florian Schneidereit.
+
+ARCHIVE NOTE: I dropped Windows as my development platform; that means, I no longer use Visual Studio and therefore will not continue development of these extensions. Feel free to fork this repository and/or reuse the code in your own projects.
 
 ## Extensions ##
 ### Comment Formatter ###
